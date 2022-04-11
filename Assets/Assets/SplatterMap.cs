@@ -6,7 +6,8 @@ public class SplatterMap : MonoBehaviour
 {
     Texture3D texture3D;
     public Transform cube;
-    public GameObject point;
+    //public GameObject point;
+    public Texture2D splat;
 
     Vector3 gridSize = new Vector3(40, 40, 40);
     Vector3 gridExtents;
@@ -23,11 +24,6 @@ public class SplatterMap : MonoBehaviour
             for (int j = 0; j < (int)gridSize.y; j++)//y
                 for (int k = 0; k < (int)gridSize.z; k++)//z
                     cols[i + j * (int)gridSize.x + k * (int)gridSize.y * (int)gridSize.z] = new Color(0, 0, 0, 1);
-        //cols[i + j * 40 + k * 160] = new Color(i * 0.1f, j * 0.1f, k * 0.1f, 1);
-        //cols[0] = new Color(1, 1, 1, 1);
-        //cols[40] = new Color(1, 1, 1, 1);
-        //cols[40 * 40] = new Color(1, 1, 1, 1);
-        //cols[6400] = new Color(1, 1, 1, 1);
 
         //x
         for (int i = 0; i < (int)gridSize.x; i++)
@@ -76,7 +72,7 @@ public class SplatterMap : MonoBehaviour
                     {
                         Vector3 pixelLocation = position;
                         texture3D.SetPixel((int)i, (int)j, (int)k, new Color(1, 1, 1, 1));
-                        point.transform.position = pixelLocation;
+                        //point.transform.position = pixelLocation;
                         Debug.Log(pixelLocation);
          
                     }
