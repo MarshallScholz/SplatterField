@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
    // public GameObject gameObject;
-    public Transform marker;
+    public GameObject marker;
     // Update is called once per frame
     void Update()
     {
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
                 {
                     ShieldSettings shieldSettings = hit.collider.GetComponent<ShieldSettings>();
                     shieldSettings.UpdateCenter(hit.point);
-                    marker.position = hit.point;
+                    marker.transform.position = hit.point;
                    // Instantiate(gameObject, marker);
                 }
                 Debug.DrawLine(ray.origin, hit.point, Color.red, 10);

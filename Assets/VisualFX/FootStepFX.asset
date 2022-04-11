@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: FootStepFX
   m_EditorClassIdentifier: 
   prefab: {fileID: 1202522996400206, guid: f87e7926fd589094b8a269e14b8bea5e, type: 3}
-  duration: 100000
+  duration: 1
   autoStop: 1
   detach: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
+  colors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
