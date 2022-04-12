@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be03d762bb68bd46bf296812a323922, type: 3}
   m_Name: FootStepFX
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1202522996400206, guid: f87e7926fd589094b8a269e14b8bea5e, type: 3}
-  duration: 1
+  prefab: {fileID: 7443987056433548257, guid: 5c4ef2c178693cc489c76dd9e6b9b53c, type: 3}
+  duration: 10000
   autoStop: 1
   detach: 1
   colors:
   - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0, a: 0}

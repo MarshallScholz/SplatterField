@@ -23,12 +23,23 @@ public class MartialArts : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
             animator.SetBool("Kick", true);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetBool("Shoot", true);
+            if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+                animator.SetBool("ShootLower", true);
+        }
     }
 
     void EndAnimations()
     {
         animator.SetBool("Punch", false);
         animator.SetBool("PunchLower", false);
+
         animator.SetBool("Kick", false);
+
+        animator.SetBool("Shoot", false);
+        animator.SetBool("ShootLower", false);
     }
 }
