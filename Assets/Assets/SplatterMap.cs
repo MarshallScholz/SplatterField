@@ -20,7 +20,7 @@ public class SplatterMap : MonoBehaviour
         //splatExtents = new Vector2Int(splat.height / 2, splat.width / 2);
 
         //creates a texture 3d (grid)
-        texture3D = new Texture3D(gridSize.x, gridSize.y, gridSize.z, TextureFormat.ARGB32, false);
+        texture3D = new Texture3D(gridSize.x, gridSize.y, gridSize.z, TextureFormat.ARGB32, true);
         int pixelCount = gridSize.x * gridSize.y * gridSize.z;
         Color[] cols = new Color[pixelCount];
 
@@ -30,16 +30,16 @@ public class SplatterMap : MonoBehaviour
                 for (int k = 0; k < gridSize.z; k++)//z
                 {
                     //top left
-                    if (i >= 0 && i <= 5 && k >= 35 && k <= 40)
+                    if (i >= 5 && i <= 10 && k >= 30 && k <= 35)
                         cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
                     //top right
-                    else if (i >= 35 && i <= 40 && k >= 35 && k <= 40)
+                    else if (i >= 30 && i <= 35 && k >= 30 && k <= 35)
                         cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
                     //bottom left
-                    else if (i >= 0 && i <= 5 && k >= 0 && k <= 5)
+                    else if (i >= 5 && i <= 10 && k >= 5 && k <= 10)
                         cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
                     //bottom right
-                    else if (i >= 35 && i <= 40 && k >= 0 && k <= 5)
+                    else if (i >= 30 && i <= 35 && k >= 5 && k <= 10)
                         cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
                     //everywhere else
                     else
@@ -49,43 +49,25 @@ public class SplatterMap : MonoBehaviour
         texture3D.SetPixels(cols);
         texture3D.Apply();
 
-        MeshRenderer ren = GetComponent<MeshRenderer>();
-        ren.material.SetTexture("_voxels", texture3D);
+        //Sets "_voxels" in each shader to textured3D, so all gameobjects using this are updated at the same time when the texture3D updates
+        foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
+        {
+            mesh.material.SetTexture("_voxels", texture3D);
+        }
     }
 
     private void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    int count = 0;
-        //    Vector3 position = cube.transform.position;
-        //    Vector3 pixelPosition = new Vector3(position.x - gridExtents.x, position.y - gridExtents.y, position.z - gridExtents.z);
-        //    for (int i = pixelPosition.x - splatExtents.x; i < pixelPosition.x + splatExtents.x; i++)
-        //    {
-        //        for (int j = pixelPosition.y - splatExtents.y; j < pixelPosition.y + splatExtents.y; j++)
-        //        {
-        //            for (int k = pixelPosition.z - splatExtents.y; k < pixelPosition.z + splatExtents.y; k++)
-        //            {
-        //                Vector2Int splatLocation = new Vector2Int(position.x, position.y);
-        //                if (splat.GetPixel(splatLocation.x, splatLocation.y) == new Color(0, 0, 0, 1))
-        //                {
-        //                    texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
-        //                    Debug.Log(position);
-        //                }
-        //                //texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
-        //                //point.transform.position = pixelLocation;
-        //                count++;
-        //            }
-        //        }
-        //    }
-        //    texture3D.Apply();
-        //}
-
-
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 position = cube.transform.position;
+            Vector3 position = cube.transform.position; //- this.transform.position;
             Vector3Int pixelPosition = new Vector3Int((int)position.x - gridExtents.x, (int)position.y - gridExtents.y, (int)position.z - gridExtents.z);
+
+            //not on this splatter map
+            if (pixelPosition.x < -40 || pixelPosition.x > 40 || //x
+                pixelPosition.y < -40 || pixelPosition.y > 40 || //y 
+                pixelPosition.z < -40 || pixelPosition.z > 40)   //z
+                return;
             for (int i = pixelPosition.x - 3; i < pixelPosition.x + 3; i++)
             {
                 //y
