@@ -11,26 +11,23 @@ public class SplatterMap : MonoBehaviour
 
     Vector3 gridSize = new Vector3(40, 40, 40);
     Vector3 gridExtents;
+    Vector2Int splatExtents;
 
     // Start is called before the first frame update
     void Start()
     {
         gridExtents = new Vector3(gridSize.x / 2, gridSize.y / 2, gridSize.z / 2);
+        splatExtents = new Vector2Int(splat.height / 2, splat.width / 2);
+
+        //creates a texture 3d (grid)
         texture3D = new Texture3D((int)gridSize.x, (int)gridSize.y, (int)gridSize.z, TextureFormat.ARGB32, false);
         int pixelCount = (int)gridSize.x * (int)gridSize.y * (int)gridSize.z;
         Color[] cols = new Color[pixelCount];
 
+        //searches through the grid and adds paint to the corners of a 40 * 40 grid (-20, 20)
         for (int i = 0; i < (int)gridSize.x; i++)//x
             for (int j = 0; j < (int)gridSize.y; j++)//y
                 for (int k = 0; k < (int)gridSize.z; k++)//z
-                    cols[i + j * (int)gridSize.x + k * (int)gridSize.y * (int)gridSize.z] = new Color(0, 0, 0, 1);
-
-        //x
-        for (int i = 0; i < (int)gridSize.x; i++)
-            //y
-            for (int j = 0; j < (int)gridSize.y; j++)
-                //z
-                for (int k = 0; k < (int)gridSize.z; k++)
                 {
                     //top left
                     if (i >= 0 && i <= 5 && k >= 35 && k <= 40)
@@ -60,21 +57,24 @@ public class SplatterMap : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            int count = 0;
             Vector3 position = cube.transform.position;
             Vector3 pixelPosition = new Vector3(position.x - gridExtents.x, position.y - gridExtents.y, position.z - gridExtents.z);
-            for (int i = (int)pixelPosition.x - 3; i < (int)pixelPosition.x + 3; i++)
+            for (int i = (int)pixelPosition.x - splatExtents.x; i < (int)pixelPosition.x + splatExtents.x; i++)
             {
-                //y
-                for (int j = (int)pixelPosition.y - 3; j < (int)pixelPosition.y + 3; j++)
+                for (int j = (int)pixelPosition.y - splatExtents.y; j < (int)pixelPosition.y + splatExtents.y; j++)
                 {
-                    //z
-                    for (int k = (int)pixelPosition.z - 3; k < (int)pixelPosition.z + 3; k++)
+                    for (int k = (int)pixelPosition.z - splatExtents.y; k < (int)pixelPosition.z + splatExtents.y; k++)
                     {
-                        Vector3 pixelLocation = position;
-                        texture3D.SetPixel((int)i, (int)j, (int)k, new Color(1, 1, 1, 1));
+                        Vector2Int splatLocation = new Vector2Int((int)position.x, (int)position.y);
+                        if(splat.GetPixel(splatLocation.x / 8, splatLocation.y / 8) == new Color(0, 0, 0, 1))
+                        {
+                            texture3D.SetPixel((int)i, (int)j, (int)k, new Color(1, 1, 1, 1));
+                            Debug.Log(position);
+                        }
+                        //texture3D.SetPixel((int)i, (int)j, (int)k, new Color(1, 1, 1, 1));
                         //point.transform.position = pixelLocation;
-                        Debug.Log(pixelLocation);
-         
+                        count++;
                     }
                 }
             }
