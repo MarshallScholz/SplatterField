@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7be03d762bb68bd46bf296812a323922, type: 3}
-  m_Name: FootStepFX
+  m_Name: KickSwish
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7443987056433548257, guid: 5c4ef2c178693cc489c76dd9e6b9b53c, type: 3}
-  duration: 10000
-  autoStop: 1
-  detach: 1
+  prefab: {fileID: 1702519301895879006, guid: 06fed11523845db4b83fe13d311a4ae1, type: 3}
+  duration: 100
+  autoStop: 0
+  detach: 0
   fade: 0
   colors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 1, g: 1, b: 1, a: 1}

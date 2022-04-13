@@ -11,6 +11,7 @@ namespace VisualFXSystem
         public bool countingDown;
         private ParticleSystem[] particles;
         private DecalProjector[] decals;
+        private AudioSource audiosource;
 
         public void Init(VisualFX fx, bool autoStop)
         {
@@ -20,6 +21,11 @@ namespace VisualFXSystem
             int index = 0;
             particles = GetComponentsInChildren<ParticleSystem>();
             decals = GetComponentsInChildren<DecalProjector>();
+            audiosource = GetComponentInChildren<AudioSource>();
+
+            audiosource.Stop();
+
+            audiosource.Play();
             //change each type colour. Eg a light ring particle effect, and then a smoke particle effect
             foreach (ParticleSystem ps in particles)
             {
@@ -73,6 +79,11 @@ namespace VisualFXSystem
                     break;
             }
             return gradient;
+        }
+
+        public void End()
+        {
+            GameObject.Destroy(gameObject);
         }
     }
 }
