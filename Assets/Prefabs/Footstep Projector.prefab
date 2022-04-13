@@ -23,7 +23,7 @@ MonoBehaviour:
   m_AffectsTransparency: 0
   m_DecalLayerMask: 1
   m_Offset: {x: 0, y: 0, z: 0.5}
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.3, y: 0.3, z: 1}
   m_FadeFactor: 1
 --- !u!1001 &7443005840069748041
 PrefabInstance:
@@ -66,11 +66,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4717135665064498, guid: 478525068336b8c428d07c79af9a0684, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4717135665064498, guid: 478525068336b8c428d07c79af9a0684, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4717135665064498, guid: 478525068336b8c428d07c79af9a0684, type: 3}
       propertyPath: m_LocalRotation.y
@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4717135665064498, guid: 478525068336b8c428d07c79af9a0684, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4717135665064498, guid: 478525068336b8c428d07c79af9a0684, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

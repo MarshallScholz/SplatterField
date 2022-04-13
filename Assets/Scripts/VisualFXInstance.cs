@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 namespace VisualFXSystem
 {
@@ -9,6 +10,7 @@ namespace VisualFXSystem
         float countdown;
         public bool countingDown;
         private ParticleSystem[] particles;
+        private DecalProjector[] decals;
 
         public void Init(VisualFX fx, bool autoStop)
         {
@@ -17,6 +19,7 @@ namespace VisualFXSystem
 
             int index = 0;
             particles = GetComponentsInChildren<ParticleSystem>();
+            decals = GetComponentsInChildren<DecalProjector>();
             //change each type colour. Eg a light ring particle effect, and then a smoke particle effect
             foreach (ParticleSystem ps in particles)
             {
@@ -26,6 +29,15 @@ namespace VisualFXSystem
                 col.color = TintGradient(col.color, fx.colors[index]);
                 index++;
                 index %= fx.colors.Length;
+            }
+            foreach (DecalProjector decal in decals)
+            {
+                //DecalProjector. main = ps.main;
+                //main.startColor = fx.colors[index];
+                //ParticleSystem.ColorOverLifetimeModule col = ps.colorOverLifetime;
+                //col.color = TintGradient(col.color, fx.colors[index]);
+                //index++;
+                //index %= fx.colors.Length;
             }
         }
         public void Update()

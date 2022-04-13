@@ -11,7 +11,7 @@ public class Footsteps : MonoBehaviour
         // foot has to be >0 to register in the animation event,
         // so values of 1 and 2 correspond to
         // the first and second foot, hence the -1 here
-        fx.Begin(feet[foot - 1]);
+        fx.Begin(feet[foot - 1], this.transform);
 
     }
 }
