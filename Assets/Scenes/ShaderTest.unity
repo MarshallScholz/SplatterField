@@ -12214,6 +12214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1536123416}
+  smooth: 0.3
 --- !u!4 &1536123415 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 272eca28e33dd6142924a27a7b73ac2d, type: 3}
