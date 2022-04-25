@@ -21,11 +21,6 @@ namespace VisualFXSystem
             int index = 0;
             particles = GetComponentsInChildren<ParticleSystem>();
             decals = GetComponentsInChildren<DecalProjector>();
-            audiosource = GetComponentInChildren<AudioSource>();
-
-            audiosource.Stop();
-
-            audiosource.Play();
             //change each type colour. Eg a light ring particle effect, and then a smoke particle effect
             foreach (ParticleSystem ps in particles)
             {

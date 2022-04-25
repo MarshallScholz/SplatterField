@@ -75,22 +75,24 @@ public class SplatterMap : MonoBehaviour
                 pixelPosition.y < -40 || pixelPosition.y > 0 || //y 
                 pixelPosition.z < -40 || pixelPosition.z > 0)   //z
                 return;
-            for (int i = pixelPosition.x - 1; i < pixelPosition.x + 1; i++)
-            {
-                //y
-                for (int j = pixelPosition.y - 1; j < pixelPosition.y + 1; j++)
-                {
-                    //z
-                    for (int k = pixelPosition.z - 1; k < pixelPosition.z + 1; k++)
-                    {
-                        Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-                        texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
-                        //point.transform.position = pixelLocation;
-                        Debug.Log(pixelLocation);
+            //for (int i = pixelPosition.x - 1; i < pixelPosition.x + 1; i++)
+            //{
+            //    //y
+            //    for (int j = pixelPosition.y - 1; j < pixelPosition.y + 1; j++)
+            //    {
+            //        //z
+            //        for (int k = pixelPosition.z - 1; k < pixelPosition.z + 1; k++)
+            //        {
+            //            Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+            //            texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
+            //            //point.transform.position = pixelLocation;
+            //            Debug.Log(pixelLocation);
 
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
+
+            texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
             //sending data to GPU
             // upating texture buffer
             texture3D.Apply();

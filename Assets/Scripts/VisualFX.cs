@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VisualFXSystem
 {
-    [CreateAssetMenu(fileName = "VisualFX", menuName = "VisualFX/VisualFX", order = 1)]
+    [CreateAssetMenu(fileName = "VisualFX", menuName = "VisualFX/VisualFXs", order = 1)]
     public class VisualFX : ScriptableObject
     {
         public GameObject prefab;
@@ -12,6 +12,8 @@ namespace VisualFXSystem
         public bool autoStop;
         public bool detach;
         public float fade;
+
+        public AudioClip clip;
         //public Color color = Color.white;
         public Color[] colors = new Color[] { Color.white };
         public VisualFXInstance Begin(Transform t)
@@ -25,6 +27,8 @@ namespace VisualFXSystem
             if (instance == null)
                 instance = obj.AddComponent<VisualFXInstance>();
             instance.Init(this, autoStop);
+            CheckClip(instance);
+
             return instance;
         }
 
@@ -43,9 +47,23 @@ namespace VisualFXSystem
 
             if (instance == null)
                 instance = obj.AddComponent<VisualFXInstance>();
-
             instance.Init(this, autoStop);
+            CheckClip(instance);
+
             return instance;
+        }
+
+        void CheckClip(VisualFXInstance instance)
+        {
+            if (clip)
+            {
+                AudioSource source = instance.GetComponent<AudioSource>();
+                if (source == null)
+                    source = instance.gameObject.AddComponent<AudioSource>();
+                source.clip = clip;
+                source.Play();
+                source.spatialBlend = 0.8f;
+            }
         }
     }
 

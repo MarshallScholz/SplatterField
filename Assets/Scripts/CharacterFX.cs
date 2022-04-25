@@ -6,6 +6,13 @@ using VisualFXSystem;
 
 public class CharacterFX : MonoBehaviour
 {
+    public AnimatedAction currentAction;
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     public enum BodyPart
     {
         //transfrom for the character midway between their feet
@@ -44,4 +51,23 @@ public class CharacterFX : MonoBehaviour
         // default - return our own transform, eg if Root is passed in
         return transform;
     }
+
+    public void DoAction(AnimatedAction action)
+    {
+        currentAction = action;
+        animator.SetTrigger(action.animTrigger);
+        if (action.beginFX)
+            action.beginFX.Begin(GetBodyPart(action.beginPart));
+    }
+
+    // called from an animation event
+    public void Activate()
+    {
+        if (currentAction)
+        {
+            currentAction.Activate(this);
+            currentAction = null; // free to do something else now
+        }
+    }
+
 }

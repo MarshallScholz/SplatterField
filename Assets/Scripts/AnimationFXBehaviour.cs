@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VisualFXSystem;
 
+
 public class AnimationFXBehaviour : StateMachineBehaviour
 {
     public VisualFX fx;
