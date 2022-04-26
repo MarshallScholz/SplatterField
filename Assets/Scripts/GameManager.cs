@@ -22,9 +22,15 @@ public class GameManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             marker.transform.position = hit.point;
-            Debug.DrawRay(ray.origin,  ray.direction * hit.distance, Color.red);
+            Debug.DrawRay(ray.origin,  ray.direction * hit.distance, Color.green);
+            Debug.Log(hit.lightmapCoord);
+            foreach(PaintSpot paintSpot in FindObjectsOfType<PaintSpot>())
+            {
+                paintSpot.UpdateTexture(hit.lightmapCoord);
+            }
         }
-        Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
+        else
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
 
     }
 }
