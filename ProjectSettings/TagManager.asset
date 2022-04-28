@@ -41,3 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Paint
+    uniqueID: 1731836671
+    locked: 0
