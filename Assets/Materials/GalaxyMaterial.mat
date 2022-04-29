@@ -18,11 +18,11 @@ Material:
     MotionVector: User
     RenderType: Transparent
   disabledShaderPasses:
-  - TransparentDepthPrepass
+  - MOTIONVECTORS
   - TransparentDepthPostpass
   - TransparentBackface
   - RayTracingPrepass
-  - MOTIONVECTORS
+  - TransparentDepthPrepass
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -166,7 +166,7 @@ Material:
     - _CoatMask: 0
     - _CullMode: 2
     - _CullModeForward: 2
-    - _CutOff: 0.33
+    - _CutOff: 0.19
     - _Cutoff: 0.5
     - _DepthOffsetEnable: 0
     - _DetailAlbedoScale: 1
@@ -184,7 +184,7 @@ Material:
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 1
     - _EmissiveIntensityUnit: 0
-    - _EnableBlendModePreserveSpecularLighting: 1
+    - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1

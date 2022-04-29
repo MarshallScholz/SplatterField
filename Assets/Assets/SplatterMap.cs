@@ -98,4 +98,14 @@ public class SplatterMap : MonoBehaviour
             texture3D.Apply();
         }
     }
+
+    public void UpdatePaint(Vector3 collisionPosition)
+    {
+        Vector3 position = cube.transform.position - collisionPosition;
+        Vector3Int pixelPosition = new Vector3Int((int)position.x - gridExtents.x, (int)position.y - gridExtents.y, (int)position.z - gridExtents.z);
+        texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
+        //sending data to GPU
+        // upating texture buffer
+        texture3D.Apply();
+    }
 }

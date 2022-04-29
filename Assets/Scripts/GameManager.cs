@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         {
             marker.transform.position = hit.point;
             Debug.DrawRay(ray.origin,  ray.direction * hit.distance, Color.green);
-            Debug.Log(hit.lightmapCoord);
+            //Debug.Log(hit.lightmapCoord);
             foreach(PaintSpot paintSpot in FindObjectsOfType<PaintSpot>())
             {
                 paintSpot.UpdateTexture(hit.lightmapCoord);

@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: TestVolume
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: 4869046554498018448}
+  - {fileID: 6424065822456621495}
+  - {fileID: 5850897256339695171}
+--- !u!114 &4869046554498018448
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be802e2dafe3c04f9ff57fd1738db5d, type: 3}
+  m_Name: Blur
+  m_EditorClassIdentifier: 
+  active: 0
+  m_AdvancedMode: 0
+  intensity:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 1
+  radius:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 5
+--- !u!114 &5850897256339695171
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7ff42a8c5be6646ad3975f3a54c1eb, type: 3}
+  m_Name: DiffusionProfileOverride
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  diffusionProfiles:
+    m_OverrideState: 1
+    m_Value:
+    - {fileID: 11400000, guid: 78322c7f82657514ebe48203160e3f39, type: 2}
+--- !u!114 &6424065822456621495
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8bcdf71d7fafa419fca1ed162f5fc9, type: 3}
+  m_Name: ColorAdjustments
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  postExposure:
+    m_OverrideState: 0
+    m_Value: 0
+  contrast:
+    m_OverrideState: 1
+    m_Value: 31
+    min: -100
+    max: 100
+  colorFilter:
+    m_OverrideState: 1
+    m_Value: {r: 22.627417, g: 0, b: 0, a: 1}
+    hdr: 1
+    showAlpha: 0
+    showEyeDropper: 1
+  hueShift:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -180
+    max: 180
+  saturation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -100
+    max: 100
