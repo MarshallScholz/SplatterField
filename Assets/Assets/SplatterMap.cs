@@ -65,47 +65,91 @@ public class SplatterMap : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 position = cube.transform.position - this.transform.position;
-            Vector3Int pixelPosition = new Vector3Int((int)position.x - gridExtents.x, (int)position.y - gridExtents.y, (int)position.z - gridExtents.z);
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Vector3 position = cube.transform.position - this.transform.position;
+        //    Vector3Int pixelPosition = new Vector3Int((int)position.x - gridExtents.x, (int)position.y - gridExtents.y, (int)position.z - gridExtents.z);
 
-            //not on this splatter map
-            if (pixelPosition.x < -40 || pixelPosition.x > 0 || //x
-                pixelPosition.y < -40 || pixelPosition.y > 0 || //y 
-                pixelPosition.z < -40 || pixelPosition.z > 0)   //z
-                return;
-            //for (int i = pixelPosition.x - 1; i < pixelPosition.x + 1; i++)
-            //{
-            //    //y
-            //    for (int j = pixelPosition.y - 1; j < pixelPosition.y + 1; j++)
-            //    {
-            //        //z
-            //        for (int k = pixelPosition.z - 1; k < pixelPosition.z + 1; k++)
-            //        {
-            //            Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-            //            texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
-            //            //point.transform.position = pixelLocation;
-            //            Debug.Log(pixelLocation);
+        //    //not on this splatter map
+        //    if (pixelPosition.x < -40 || pixelPosition.x > 0 || //x
+        //        pixelPosition.y < -40 || pixelPosition.y > 0 || //y 
+        //        pixelPosition.z < -40 || pixelPosition.z > 0)   //z
+        //        return;
+        //    for (int i = pixelPosition.x - 1; i < pixelPosition.x + 1; i++)
+        //    {
+        //        //y
+        //        for (int j = pixelPosition.y - 1; j < pixelPosition.y + 1; j++)
+        //        {
+        //            //z
+        //            for (int k = pixelPosition.z - 1; k < pixelPosition.z + 1; k++)
+        //            {
+        //                Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+        //                texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
+        //                //point.transform.position = pixelLocation;
+        //                Debug.Log(pixelLocation);
 
-            //        }
-            //    }
-            //}
+        //            }
+        //        }
+        //    }
 
-            texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
-            //sending data to GPU
-            // upating texture buffer
-            texture3D.Apply();
-        }
+        //    texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
+        //    //sending data to GPU
+        //    // upating texture buffer
+        //    texture3D.Apply();
+        //}
     }
 
     public void UpdatePaint(Vector3 collisionPosition)
     {
-        Vector3 position = cube.transform.position - collisionPosition;
+        Vector3 position = collisionPosition - this.transform.position;
         Vector3Int pixelPosition = new Vector3Int((int)position.x - gridExtents.x, (int)position.y - gridExtents.y, (int)position.z - gridExtents.z);
         texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
+
+         for (int i = pixelPosition.x - 1; i < pixelPosition.x + 1; i++)
+            {
+                //y
+                for (int j = pixelPosition.y - 1; j < pixelPosition.y + 1; j++)
+                {
+                    //z
+                    for (int k = pixelPosition.z - 1; k < pixelPosition.z + 1; k++)
+                    {
+                        Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+                        texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
+                        //point.transform.position = pixelLocation;
+                        Debug.Log(pixelLocation);
+
+                    }
+                }
+            }
+
         //sending data to GPU
         // upating texture buffer
         texture3D.Apply();
     }
 }
+
+
+//Vector3 position = this.transform.position - collisionPosition;
+//Vector3Int pixelPosition = new Vector3Int((int)collisionPosition.x, (int)collisionPosition.y, (int)collisionPosition.z);
+//texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
+
+//for (int i = pixelPosition.x - 2; i < pixelPosition.x + 2; i++)
+//{
+//    //y
+//    for (int j = pixelPosition.y - 2; j < pixelPosition.y + 2; j++)
+//    {
+//        //z
+//        for (int k = pixelPosition.z - 2; k < pixelPosition.z + 2; k++)
+//        {
+//            Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+//            texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
+//            //point.transform.position = pixelLocation;
+//            Debug.Log(pixelLocation);
+
+//        }
+//    }
+//}
+//cube.transform.position = collisionPosition;
+////sending data to GPU
+//// upating texture buffer
+//texture3D.Apply();
