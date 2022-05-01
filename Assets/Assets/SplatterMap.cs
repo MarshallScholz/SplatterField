@@ -6,16 +6,20 @@ public class SplatterMap : MonoBehaviour
 {
     Texture3D texture3D;
     public Transform cube;
+    public Texture2D currentColour;
     //public GameObject point;
     //public Texture2D splat;
 
-    Vector3Int gridSize = new Vector3Int(40, 40, 40);
+    public int gridSizeBox;
+    Vector3Int gridSize;
     Vector3Int gridExtents;
     Vector2Int splatExtents;
 
+    public GameObject hitPoint;
     // Start is called before the first frame update
     void Start()
     {
+        gridSize = new Vector3Int(gridSizeBox, gridSizeBox, gridSizeBox);
         gridExtents = new Vector3Int(gridSize.x / 2, gridSize.y / 2, gridSize.z / 2);
         //splatExtents = new Vector2Int(splat.height / 2, splat.width / 2);
 
@@ -28,6 +32,7 @@ public class SplatterMap : MonoBehaviour
         foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
         {
             mesh.material.SetVector("_worldPosition", transform.position);
+            mesh.material.SetFloat("_gridSize", gridExtents.x);
         }
         //searches through the grid and adds paint to the corners of a 40 * 40 grid (-20, 20)
         for (int i = 0; i < gridSize.x; i++)//x
@@ -103,28 +108,40 @@ public class SplatterMap : MonoBehaviour
     {
         Vector3 position = collisionPosition - this.transform.position;
         Vector3Int pixelPosition = new Vector3Int((int)position.x - gridExtents.x, (int)position.y - gridExtents.y, (int)position.z - gridExtents.z);
+        //Vector3Int pixelPosition = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
         texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
-
-         for (int i = pixelPosition.x - 1; i < pixelPosition.x + 1; i++)
+        int paintRadius = 1;
+        Debug.Log("Raw Position : " + position);
+        Debug.Log("Splatter map position: " + pixelPosition);
+        for (int i = pixelPosition.x - paintRadius; i < pixelPosition.x + paintRadius; i++)
+        {
             {
                 //y
-                for (int j = pixelPosition.y - 1; j < pixelPosition.y + 1; j++)
+                for (int j = pixelPosition.y - paintRadius; j < pixelPosition.y + paintRadius; j++)
                 {
                     //z
-                    for (int k = pixelPosition.z - 1; k < pixelPosition.z + 1; k++)
+                    for (int k = pixelPosition.z - paintRadius; k < pixelPosition.z + paintRadius; k++)
                     {
-                        Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+                        //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
                         texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
-                        //point.transform.position = pixelLocation;
-                        Debug.Log(pixelLocation);
-
+                        hitPoint.transform.position = pixelPosition;
+                        Debug.Log("Splatter map position: " + pixelPosition);
                     }
                 }
             }
-
+        }
         //sending data to GPU
         // upating texture buffer
         texture3D.Apply();
+    }
+
+    public void UpdateColour(Texture2D newColour)
+    {
+        currentColour = newColour;
+        foreach (MeshRenderer mesh in FindObjectOfType<SplatterMap>().GetComponentsInChildren<MeshRenderer>())
+        {
+            mesh.material.SetTexture("_PaintColour", currentColour);
+        }
     }
 }
 

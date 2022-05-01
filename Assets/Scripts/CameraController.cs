@@ -19,6 +19,7 @@ public class CameraController : MonoBehaviour
 
     public Vector3 offset;
 
+
     void Start()
     {
         cam = this.GetComponent<Transform>();
@@ -54,6 +55,7 @@ public class CameraController : MonoBehaviour
             currentDistance = Mathf.MoveTowards(currentDistance, distanceBack,
             Time.deltaTime * relaxSpeed);
         }
+
 
         // look at the target point
         transform.position = (target.position + offset)

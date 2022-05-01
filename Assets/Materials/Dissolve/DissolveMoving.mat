@@ -149,7 +149,7 @@ Material:
     - _CoatMask: 0
     - _CullMode: 2
     - _CullModeForward: 2
-    - _CutOff: 0.08
+    - _CutOff: -0.67261183
     - _CutOffSpeed: 1
     - _Cutoff: 0.5
     - _DepthOffsetEnable: 0
@@ -191,7 +191,7 @@ Material:
     - _Metallic: 0
     - _MetallicRemapMax: 1
     - _MetallicRemapMin: 0
-    - _MovementFrequency: 0
+    - _MovementFrequency: 1
     - _NoiseStrength: 0.49
     - _NormalMapSpace: 0
     - _NormalScale: 1
@@ -263,7 +263,7 @@ Material:
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
-    - _Movement: {r: 0, g: 0, b: 0, a: 0}
+    - _Movement: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}

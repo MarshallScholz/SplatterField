@@ -71,12 +71,22 @@ public class PaintSpot : MonoBehaviour
     public void UpdateTexture(Vector2 lightmapCoord)
     {
         int width = 10;
-        for (int i = -width; i < width; i++) 
+        int height = 10;
+        for (int x = -width; x < width; x++)
         {
-            textureMask.SetPixel((int)(lightmapCoord.x * textureMask.width), (int)(lightmapCoord.y * textureMask.height) + i, Color.white);
-            textureMask.SetPixel((int)(lightmapCoord.x * textureMask.width) + i, (int)(lightmapCoord.y * textureMask.height), Color.white);
-
+            for(int y = -height; y < height; y++)
+            {
+                textureMask.SetPixel((int)(lightmapCoord.x * textureMask.width) + x, (int)(lightmapCoord.y * textureMask.height) + y, Color.white);
+            }
         }
+        //for (int i = -width; i < 0; i++) 
+        //{
+        //    textureMask.SetPixel((int)(lightmapCoord.x * textureMask.width), (int)(lightmapCoord.y * textureMask.height) + i, Color.white);    
+        //}
+        //for (int i = -height; i < 0; i++)
+        //{
+        //    textureMask.SetPixel((int)(lightmapCoord.x * textureMask.width), (int)(lightmapCoord.y * textureMask.height) + i, Color.white);
+        //}
         //sending data to GPU
         // upating texture buffer
         textureMask.Apply();

@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour
     public GameObject marker;
     public LayerMask ignoreLayer;
     public ParticleSystem particleSystem;
+    public AudioSource audioSource;
 
     void Start()
     {
         ignoreLayer = LayerMask.GetMask("Ignore Raycast");
+        audioSource = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -23,27 +25,31 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Sense", Mathf.Sign(fwd), smooth, Time.deltaTime);
         animator.SetFloat("Turn", Input.GetAxis("Horizontal"), smooth, Time.deltaTime);
 
+        RaycastHit hit;
+        Vector3 thisPosition = Camera.main.transform.position;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            marker.transform.position = hit.point;
+            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+        }
+        else
+        {
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
+            marker.transform.position = ray.direction * 100;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
-            ParticleSystem.MinMaxCurve minMaxCurve = new ParticleSystem.MinMaxCurve(1.0f, 2.0f);
-
-
-            RaycastHit hit;
-            Vector3 thisPosition = Camera.main.transform.position;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             //marker.transform.position = 
             particleSystem.transform.localPosition = Vector3.zero;
             //particleSystem.velocityOverLifetime = particleSystem.transform.position;
             particleSystem.Play();
+            audioSource.Play();
+
             //particleSystem.velocityOverLifetime.yMultiplier = 1.0f;
-            if (Physics.Raycast(ray, out hit))
-            {
-                //marker.transform.position = hit.point;
-                Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
-            }
-            else
-                Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
         }
 
     }
