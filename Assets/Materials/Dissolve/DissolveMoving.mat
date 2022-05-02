@@ -149,7 +149,7 @@ Material:
     - _CoatMask: 0
     - _CullMode: 2
     - _CullModeForward: 2
-    - _CutOff: -0.67261183
+    - _CutOff: 0.6529083
     - _CutOffSpeed: 1
     - _Cutoff: 0.5
     - _DepthOffsetEnable: 0

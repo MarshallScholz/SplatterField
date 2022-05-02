@@ -8443,7 +8443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2219002095532442322, guid: 18ac2759ba0e38d468c6e25d02c51fbe, type: 3}
       propertyPath: VelocityModule.x.scalar
-      value: 2
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 2219002095532442322, guid: 18ac2759ba0e38d468c6e25d02c51fbe, type: 3}
       propertyPath: VelocityModule.y.scalar
@@ -8463,7 +8463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2219002095532442322, guid: 18ac2759ba0e38d468c6e25d02c51fbe, type: 3}
       propertyPath: VelocityModule.inWorldSpace
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2219002095532442322, guid: 18ac2759ba0e38d468c6e25d02c51fbe, type: 3}
       propertyPath: CollisionModule.minKillSpeed
@@ -8475,7 +8475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2219002095532442322, guid: 18ac2759ba0e38d468c6e25d02c51fbe, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4484687693093074997, guid: 18ac2759ba0e38d468c6e25d02c51fbe, type: 3}
       propertyPath: m_Name
