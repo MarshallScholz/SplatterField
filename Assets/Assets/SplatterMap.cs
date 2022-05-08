@@ -104,28 +104,32 @@ public class SplatterMap : MonoBehaviour
         //}
     }
 
+    //LOOK AT ARTICLE TO OPTIMIZE upto 15x faster https://answers.unity.com/questions/266170/for-different-texture-sizes-which-is-faster-setpix.html
     public void UpdatePaint(Vector3 collisionPosition)
     {
         Vector3 position = collisionPosition - this.transform.position;
         Vector3Int pixelPosition = new Vector3Int((int)position.x - gridExtents.x, (int)position.y - gridExtents.y, (int)position.z - gridExtents.z);
         //Vector3Int pixelPosition = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
         texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
-        int paintRadius = 1;
-        Debug.Log("Raw Position : " + position);
-        Debug.Log("Splatter map position: " + pixelPosition);
+        int paintRadius =1;
+        //Debug.Log("Raw Position : " + position);
+        //Debug.Log("Splatter map position: " + pixelPosition);
         for (int i = pixelPosition.x - paintRadius; i < pixelPosition.x + paintRadius; i++)
         {
+            //y   xxx
+            for (int j = pixelPosition.y - paintRadius; j < pixelPosition.y + paintRadius; j++)
             {
-                //y
-                for (int j = pixelPosition.y - paintRadius; j < pixelPosition.y + paintRadius; j++)
+                //z
+                for (int k = pixelPosition.z - paintRadius; k < pixelPosition.z + paintRadius; k++)
                 {
-                    //z
-                    for (int k = pixelPosition.z - paintRadius; k < pixelPosition.z + paintRadius; k++)
+                    //Makes it look more splatty with smaller radius'
+                    Vector3 delta = new Vector3(i - pixelPosition.x, j - pixelPosition.y, k - pixelPosition.z);
+                    if (delta.magnitude < paintRadius /* paintRadius*/)
                     {
                         //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
                         texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
                         hitPoint.transform.position = pixelPosition;
-                        Debug.Log("Splatter map position: " + pixelPosition);
+                        //Debug.Log("Splatter map position: " + pixelPosition);
                     }
                 }
             }
