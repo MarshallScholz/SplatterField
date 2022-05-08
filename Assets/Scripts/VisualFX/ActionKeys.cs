@@ -2,28 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterFX))]
-public class ActionKeys : MonoBehaviour
+namespace VisualFXSystem
 {
-    public AnimatedAction[] actions;
-    CharacterFX characterFX;
-    // Start is called before the first frame update
-    void Start()
+
+    [RequireComponent(typeof(CharacterFX))]
+    public class ActionKeys : MonoBehaviour
     {
-        characterFX = GetComponent<CharacterFX>();
-    }
-    void Update()
-    {
-        if (characterFX.currentAction == null)
+        public AnimatedAction[] actions;
+        CharacterFX characterFX;
+        // Start is called before the first frame update
+        void Start()
         {
-            // start with the 1 key
-            // we'll need to rethink this if we have > 10 actions
-            KeyCode key = KeyCode.Alpha1;
-            foreach (AnimatedAction action in actions)
+            characterFX = GetComponent<CharacterFX>();
+        }
+        void Update()
+        {
+            if (characterFX.currentAction == null)
             {
-                if (Input.GetKeyDown(key))
-                    characterFX.DoAction(action);
-                key++;
+                // start with the 1 key
+                // we'll need to rethink this if we have > 10 actions
+                KeyCode key = KeyCode.Alpha1;
+                foreach (AnimatedAction action in actions)
+                {
+                    if (Input.GetKeyDown(key))
+                        characterFX.DoAction(action);
+                    key++;
+                }
             }
         }
     }
