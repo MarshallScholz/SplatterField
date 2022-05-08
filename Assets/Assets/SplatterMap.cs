@@ -111,7 +111,7 @@ public class SplatterMap : MonoBehaviour
         Vector3Int pixelPosition = new Vector3Int((int)position.x - gridExtents.x, (int)position.y - gridExtents.y, (int)position.z - gridExtents.z);
         //Vector3Int pixelPosition = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
         texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
-        int paintRadius = 1;
+        int paintRadius =1;
         //Debug.Log("Raw Position : " + position);
         //Debug.Log("Splatter map position: " + pixelPosition);
         for (int i = pixelPosition.x - paintRadius; i < pixelPosition.x + paintRadius; i++)
@@ -124,7 +124,7 @@ public class SplatterMap : MonoBehaviour
                 {
                     //Makes it look more splatty with smaller radius'
                     Vector3 delta = new Vector3(i - pixelPosition.x, j - pixelPosition.y, k - pixelPosition.z);
-                    if (delta.magnitude < paintRadius)
+                    if (delta.magnitude < paintRadius /* paintRadius*/)
                     {
                         //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
                         texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
