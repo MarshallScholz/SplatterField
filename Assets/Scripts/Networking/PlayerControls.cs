@@ -45,36 +45,44 @@ public class PlayerControls : NetworkBehaviour
         transform.eulerAngles += rotation;
         cc.Move(movement);
 
-        //RaycastHit hit;
-        //Vector3 thisPosition = Camera.main.transform.position;
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        //if (Physics.Raycast(ray, out hit))
-        //{
-        //    //marker.transform.position = hit.point;
-        //    Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
-        //}
-        //else
-        //{
-        //    Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
-        //    //marker.transform.position = ray.direction * 100;
-        //}
-
-        ////re-enable for shooting
-        //if (Input.GetMouseButtonDown(0))
-        //{
-
-        //    //marker.transform.position = 
-        //    //particleSystem.transform.localPosition = Vector3.zero;
-        //    ////particleSystem.velocityOverLifetime = particleSystem.transform.position;
-        //    //particleSystem.Play();
-        //    //audioSource.Play();
-
-        //    //particleSystem.velocityOverLifetime.yMultiplier = 1.0f;
-        //}
 
 
+        RaycastHit hit;
+        Vector3 thisPosition = Camera.main.transform.position;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        if (Physics.Raycast(ray, out hit))
+        {
+            marker.transform.position = hit.point;
+            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+        }
+        else
+        {
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
+            marker.transform.position = ray.direction * 100;
+        }
+
+        CmdLook(marker.transform.position);
+
+
+    }
+
+    [Command]
+    void CmdLook(Vector3 position)
+    {
+        //tells all clients to do it
+        RpcLook(position);
+    }
+
+    [ClientRpc]
+    void RpcLook(Vector3 position)
+    {
+        LookAt(position);
+    }
+
+    void LookAt(Vector3 position)
+    {
+        marker.transform.position = position;
     }
 }
 
