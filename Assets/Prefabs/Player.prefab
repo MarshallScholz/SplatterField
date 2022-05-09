@@ -7583,6 +7583,8 @@ GameObject:
   - component: {fileID: 252932730251572208}
   - component: {fileID: 1212601784}
   - component: {fileID: 1212601785}
+  - component: {fileID: -3064675230904062142}
+  - component: {fileID: -3958289395034494930}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -7933,6 +7935,41 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
+--- !u!114 &-3064675230904062142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116460611477857775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: ef3b8a19ca50e4e4780e6758eff57a32
+  hasSpawned: 0
+--- !u!114 &-3958289395034494930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116460611477857775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8956f50b16676b842b068a6260b986f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  lineRenderer: {fileID: 0}
+  coolDown: 1
+  fireFX: {fileID: 0}
+  bulletPrefab: {fileID: 3749715784165286228, guid: 9914967947f815942abb01ca3d83a4b7, type: 3}
 --- !u!1 &8355844833886627886
 GameObject:
   m_ObjectHideFlags: 0
