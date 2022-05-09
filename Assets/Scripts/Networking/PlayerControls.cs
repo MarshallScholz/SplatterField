@@ -22,6 +22,12 @@ public class PlayerControls : NetworkBehaviour
         ignoreLayer = LayerMask.GetMask("Ignore Raycast");
         audioSource = GetComponent<AudioSource>();
         cc = GetComponent<CharacterController>();
+
+        //attatch player to camera if local player
+        if (CameraController.instance != null && isLocalPlayer)
+        {
+            CameraController.instance.target = transform;
+        }
     }
     void Update()
     {

@@ -19,7 +19,13 @@ public class CameraController : MonoBehaviour
 
     public Vector3 offset;
 
+    //singleston pattern - this is the one and only CameraController
+    public static CameraController instance;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         cam = this.GetComponent<Transform>();
