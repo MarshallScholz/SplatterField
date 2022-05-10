@@ -22,6 +22,9 @@ public class SplatterMap : NetworkBehaviour
     public int lastPaintSplat = 10;
 
     public GameObject hitPoint;
+
+    public float minPaintArea = 1;
+    public float drawChance = 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +38,7 @@ public class SplatterMap : NetworkBehaviour
         lastPixelMultipleyer = pixelMultiplyer;
         Color[] cols = new Color[pixelCount];
 
-
+        UpdateColour(currentColour);
         foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
         {
             mesh.material.SetVector("_worldPosition", transform.position);
@@ -75,42 +78,43 @@ public class SplatterMap : NetworkBehaviour
         {
             mesh.material.SetTexture("_voxels", texture3D);
         }
+
+        //Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    void ResetSplatterMap()
+    {
+        gridSize = new Vector3Int(gridSizeBox, gridSizeBox, gridSizeBox);
+        gridExtents = new Vector3Int(gridSize.x / 2, gridSize.y / 2, gridSize.z / 2);
+
+        //creates a texture 3d (grid)
+        texture3D = new Texture3D(gridSize.x * pixelMultiplyer, gridSize.y * pixelMultiplyer, gridSize.z * pixelMultiplyer, TextureFormat.ARGB32, true);
+        int pixelCount = (gridSize.x * pixelMultiplyer) * (gridSize.y * pixelMultiplyer) * (gridSize.z * pixelMultiplyer);
+        lastPaintSplat = paintSplat;
+        lastPixelMultipleyer = pixelMultiplyer;
+        Color[] cols = new Color[pixelCount];
+
+        UpdateColour(currentColour);
+        foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
+        {
+            mesh.material.SetVector("_worldPosition", transform.position);
+            mesh.material.SetFloat("_gridSize", gridExtents.x);
+            mesh.material.SetFloat("_pixelMultiplyer", pixelMultiplyer);
+            mesh.material.SetFloat("_paintSplat", paintSplat);
+        }
+
+        texture3D.SetPixels(cols);
+        texture3D.Apply();
+
+        //Sets "_voxels" in each shader to textured3D, so all gameobjects using this are updated at the same time when the texture3D updates
+        foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
+        {
+            mesh.material.SetTexture("_voxels", texture3D);
+        }
     }
 
     private void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Vector3 position = cube.transform.position - this.transform.position;
-        //    Vector3Int pixelPosition = new Vector3Int((int)position.x - gridExtents.x, (int)position.y - gridExtents.y, (int)position.z - gridExtents.z);
-
-        //    //not on this splatter map
-        //    if (pixelPosition.x < -40 || pixelPosition.x > 0 || //x
-        //        pixelPosition.y < -40 || pixelPosition.y > 0 || //y 
-        //        pixelPosition.z < -40 || pixelPosition.z > 0)   //z
-        //        return;
-        //    for (int i = pixelPosition.x - 1; i < pixelPosition.x + 1; i++)
-        //    {
-        //        //y
-        //        for (int j = pixelPosition.y - 1; j < pixelPosition.y + 1; j++)
-        //        {
-        //            //z
-        //            for (int k = pixelPosition.z - 1; k < pixelPosition.z + 1; k++)
-        //            {
-        //                Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-        //                texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
-        //                //point.transform.position = pixelLocation;
-        //                Debug.Log(pixelLocation);
-
-        //            }
-        //        }
-        //    }
-
-        //    texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
-        //    //sending data to GPU
-        //    // upating texture buffer
-        //    texture3D.Apply();
-        //}
         if (paintSplat != lastPaintSplat)
             foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
             {
@@ -118,7 +122,19 @@ public class SplatterMap : NetworkBehaviour
                 mesh.material.SetFloat("_paintSplat", paintSplat);
                 lastPaintSplat = paintSplat;
             }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            ResetSplatterMap();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //Cursor.lockState = CursorLockMode.None;
+        }
     }
+
+
 
     [Command(requiresAuthority = false)]
     public void CmdUpdatePaint(Vector3 collisionPoint)
@@ -136,11 +152,12 @@ public class SplatterMap : NetworkBehaviour
     //LOOK AT ARTICLE TO OPTIMIZE upto 15x faster https://answers.unity.com/questions/266170/for-different-texture-sizes-which-is-faster-setpix.html
     public void UpdatePaint(Vector3 collisionPosition)
     {
+        //collisionPosition += new Vector3(1, 0, 1);
         Vector3 position = collisionPosition - this.transform.position;
         Vector3Int pixelPosition = new Vector3Int(((int)position.x - gridExtents.x) * pixelMultiplyer, ((int)position.y - gridExtents.y) * pixelMultiplyer, ((int)position.z - gridExtents.z) *pixelMultiplyer);
         //Vector3Int pixelPosition = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
         texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
-        int paintRadius = 20 / pixelMultiplyer;
+        int paintRadius = 1 * pixelMultiplyer;
         //Debug.Log("Raw Position : " + position);
         //Debug.Log("Splatter map position: " + pixelPosition);
         for (int i = pixelPosition.x - paintRadius; i < pixelPosition.x + paintRadius; i++)
@@ -153,12 +170,21 @@ public class SplatterMap : NetworkBehaviour
                 {
                     //Makes it look more splatty with smaller radius'
                     Vector3 delta = new Vector3(i - pixelPosition.x, j - pixelPosition.y, k - pixelPosition.z);
-                    if (delta.magnitude < paintRadius /* paintRadius*/)
+                    if (delta.magnitude < paintRadius / minPaintArea /* paintRadius*/)
                     {
                         //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
                         texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
                         //hitPoint.transform.position = pixelPosition;
                         //Debug.Log("Splatter map position: " + pixelPosition);
+                    }
+                    else
+                    {
+                        //decrease the drawchance as the i, j and k values increase to make nicer looking splats
+                        float drawPixel = Random.Range(0, 100);
+                        if(drawChance > drawPixel)
+                        {
+                            texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
+                        }
                     }
                 }
             }
@@ -166,6 +192,7 @@ public class SplatterMap : NetworkBehaviour
         //sending data to GPU
         // upating texture buffer
         texture3D.Apply();
+        cube.transform.position = collisionPosition;
     }
 
     public void UpdateColour(Texture2D newColour)
@@ -199,7 +226,6 @@ public class SplatterMap : NetworkBehaviour
 //        }
 //    }
 //}
-//cube.transform.position = collisionPosition;
 ////sending data to GPU
 //// upating texture buffer
 //texture3D.Apply();

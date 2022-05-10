@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 501c36b6eea7c70479f272afef8efcad, type: 2}
+  - {fileID: 2100000, guid: d1bbb4acf1d627144b89d7cf101191ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -181,5 +181,5 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   velocity: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 20
   lifeTime: 20
