@@ -20,7 +20,7 @@ public class LaserBeam : NetworkBehaviour {
     void Start()
     {
         // turn off the linerenderer
-        ShowLaser(false);
+        //ShowLaser(false);
         CharacterMovement cm = GetComponent<CharacterMovement>();
         if (cm)
             index = cm.index;
@@ -33,8 +33,8 @@ public class LaserBeam : NetworkBehaviour {
         if (coolDown > 0)
         {
             coolDown -= Time.deltaTime;
-            if (coolDown < 0.5f)
-                ShowLaser(false);
+            //if (coolDown < 0.5f)
+            //    ShowLaser(false);
         }
 
         // only check controls if we're the local player
@@ -55,13 +55,13 @@ public class LaserBeam : NetworkBehaviour {
     [ClientRpc]
     void RpcFire()
     {
-        Hit();
+        SpawnBullet();
     }
 
     void DoLaser()
     {
         // trigger the visuals - this should happen on all machines individually
-        ShowLaser(true);
+        //ShowLaser(true);
         coolDown = 1.0f;
 
         // more visual fx, a burst around the firing nozzle
@@ -86,14 +86,14 @@ public class LaserBeam : NetworkBehaviour {
         }
     }
 
-    void ShowLaser(bool show)
-    {
-        if(lineRenderer)
-            lineRenderer.enabled = show;
-    }
+    //void ShowLaser(bool show)
+    //{
+    //    if(lineRenderer)
+    //        lineRenderer.enabled = show;
+    //}
 
     [Server]
-    public void Hit()
+    public void SpawnBullet()
     {
         // this gets called in response to animation events
         // DoLaser();
