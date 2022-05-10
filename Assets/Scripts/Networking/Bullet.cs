@@ -41,8 +41,9 @@ namespace MirrorNetwork
                 //collisionEvents[i].colliderComponent.transform.position;
                 Vector3 collisionPoint = other.ClosestPoint(this.transform.position);
                 //Vector3 pos = collisionEvents[i].colliderComponent.transform.position;
-                SplatterMap splatterMap = other.GetComponentInParent<SplatterMap>();
-                NetworkCommands.instance.UpdateSplatterMap(splatterMap,collisionPoint);
+                other.GetComponentInParent<SplatterMap>().CmdUpdatePaint(collisionPoint);
+
+
             }
 
             NetworkServer.Destroy(this.gameObject);

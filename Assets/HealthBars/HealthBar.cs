@@ -21,7 +21,8 @@ public class HealthBar : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        transform.position = health.transform.position + Vector3.up * 2;
+        if(health)
+            transform.position = health.transform.position + Vector3.up * 2;
         transform.forward = Camera.main.transform.forward;
         UpdateMeter();
     }

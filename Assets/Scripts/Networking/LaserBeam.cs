@@ -85,7 +85,8 @@ public class LaserBeam : NetworkBehaviour {
 
     void ShowLaser(bool show)
     {
-        lineRenderer.enabled = show;
+        if(lineRenderer)
+            lineRenderer.enabled = show;
     }
 
     [Server]

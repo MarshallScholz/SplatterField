@@ -105,7 +105,7 @@ public class SplatterMap : NetworkBehaviour
         //}
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdUpdatePaint(Vector3 collisionPoint)
     {
         //tells all clients to do it

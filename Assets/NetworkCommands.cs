@@ -19,8 +19,8 @@ public class NetworkCommands : NetworkBehaviour
         CmdUpdateSplatterMap(splatterMap.gameObject, position);
     }
 
-    [Command]
-    void CmdUpdateSplatterMap(GameObject splatterMap, Vector3 position)
+    [Command(requiresAuthority = false)]
+    public void CmdUpdateSplatterMap(GameObject splatterMap, Vector3 position)
     {
         RpcUpdateSplatterMap(splatterMap, position);
     }

@@ -47,6 +47,9 @@ public class CameraController : MonoBehaviour
             transform.eulerAngles = angles;
         }
 
+        if (target == null)
+            return;
+
         RaycastHit hit;
         if (Physics.Raycast(target.position + offset, -transform.forward, out hit, currentDistance, 9))
         {

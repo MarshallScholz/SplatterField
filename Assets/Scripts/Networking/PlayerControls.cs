@@ -34,13 +34,14 @@ public class PlayerControls : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        float fwd = Input.GetAxis("Vertical");
-        animator.SetFloat("Forward", Mathf.Abs(fwd), smooth, Time.deltaTime);
-        animator.SetFloat("Sense", Mathf.Sign(fwd), smooth, Time.deltaTime);
-        animator.SetFloat("Turn", Input.GetAxis("Horizontal"), smooth, Time.deltaTime);
+        float forward = Input.GetAxis("Vertical");
+        float turn = Input.GetAxis("Horizontal");
+        animator.SetFloat("Forward", Mathf.Abs(forward), smooth, Time.deltaTime);
+        animator.SetFloat("Sense", Mathf.Sign(forward), smooth, Time.deltaTime);
+        animator.SetFloat("Turn", turn, smooth, Time.deltaTime);
 
-        Vector3 rotation = Vector3.up * Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime;
-        Vector3 movement = (transform.forward * Input.GetAxis("Vertical") * playerSpeed + Physics.gravity) * Time.deltaTime;
+        Vector3 rotation = (Vector3.up * turn) * (rotateSpeed * Time.deltaTime);
+        Vector3 movement = (transform.forward * forward * playerSpeed + Physics.gravity) * Time.deltaTime;
 
         transform.eulerAngles += rotation;
         cc.Move(movement);
