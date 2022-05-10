@@ -152,14 +152,14 @@ public class SplatterMap : NetworkBehaviour
                 for (int k = pixelPosition.z - paintRadius; k < pixelPosition.z + paintRadius; k++)
                 {
                     //Makes it look more splatty with smaller radius'
-                    //Vector3 delta = new Vector3(i - pixelPosition.x, j - pixelPosition.y, k - pixelPosition.z);
-                    //if (delta.magnitude < paintRadius /* paintRadius*/)
-                    //{
+                    Vector3 delta = new Vector3(i - pixelPosition.x, j - pixelPosition.y, k - pixelPosition.z);
+                    if (delta.magnitude < paintRadius /* paintRadius*/)
+                    {
                         //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
                         texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
                         //hitPoint.transform.position = pixelPosition;
                         //Debug.Log("Splatter map position: " + pixelPosition);
-                    //}
+                    }
                 }
             }
         }
