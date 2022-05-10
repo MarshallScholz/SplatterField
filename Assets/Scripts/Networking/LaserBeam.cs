@@ -9,9 +9,12 @@ public class LaserBeam : NetworkBehaviour {
     public LineRenderer lineRenderer;
     public float coolDown = 1;
     public ParticleSystem fireFX;
+    public Transform gunTransform;
+    public Vector3 bulletOffset;
     int index = 1;
 
     public GameObject bulletPrefab;
+
 
     // Use this for initialization
     void Start()
@@ -42,7 +45,7 @@ public class LaserBeam : NetworkBehaviour {
 
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     void CmdFire()
     {
         //tells all clients to do it
@@ -95,10 +98,10 @@ public class LaserBeam : NetworkBehaviour {
         // this gets called in response to animation events
         // DoLaser();
         GameObject go = Instantiate(bulletPrefab.gameObject,
-        transform.position + Vector3.up + transform.forward,
-        Quaternion.LookRotation(transform.forward));
+        gunTransform.position + bulletOffset,
+        Quaternion.LookRotation(gunTransform.forward));
         Bullet bullet = go.GetComponent<Bullet>();
-        bullet.velocity = transform.forward * 5;
+        bullet.velocity = gunTransform.right * 5;
 
         NetworkServer.Spawn(bullet.gameObject);
 
