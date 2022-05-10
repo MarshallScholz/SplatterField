@@ -10,7 +10,9 @@ namespace MirrorNetwork
     public class Bullet : NetworkBehaviour
     {
         public Vector3 velocity = new Vector3(10, 0, 0);
+        public float speed = 10;
         public float lifeTime;
+        private Rigidbody rb;
 
         public override void OnStartServer()
         {
@@ -23,25 +25,34 @@ namespace MirrorNetwork
             NetworkServer.Destroy(gameObject);
         }
 
+        private void Start()
+        {
+            rb = GetComponent<Rigidbody>();
+            rb.velocity = this.velocity * speed;
+        }
+
         // Update is called once per frame on the server
         [Server]
         void Update()
         {
-            transform.position += velocity * Time.deltaTime;
+            //transform.position += velocity * Time.deltaTime;
+            //velocity -= new Vector3(1, -Physics.gravity.y, 1);
         }
 
-        [Server]
-        private void OnTriggerEnter(Collider other)
-        {
-            if(other.GetComponent<Health>())
-                other.GetComponent<Health>().ApplyDamage(10);
 
-            if (other.GetComponentInParent<Transform>().GetComponentInParent<SplatterMap>())
+        //TRY DOING ONCOLLISIONSTAY TO PAINT WHILE IT ROLLS
+        [Server]
+        private void OnCollisionEnter(Collision other)
+        {
+            if(other.gameObject.GetComponent<Health>())
+                other.gameObject.GetComponent<Health>().ApplyDamage(10);
+
+            if (other.gameObject.GetComponentInParent<Transform>().GetComponentInParent<SplatterMap>())
             {
                 //collisionEvents[i].colliderComponent.transform.position;
-                Vector3 collisionPoint = other.ClosestPoint(this.transform.position);
+                Vector3 collisionPoint = other.collider.ClosestPoint(this.transform.position);
                 //Vector3 pos = collisionEvents[i].colliderComponent.transform.position;
-                other.GetComponentInParent<SplatterMap>().CmdUpdatePaint(collisionPoint);
+                other.gameObject.GetComponentInParent<SplatterMap>().CmdUpdatePaint(collisionPoint);
 
 
             }

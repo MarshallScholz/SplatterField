@@ -16,17 +16,23 @@ public class SplatterMap : NetworkBehaviour
     Vector3Int gridExtents;
     Vector2Int splatExtents;
 
+    public int pixelMultiplyer = 1;
+    public int lastPixelMultipleyer = 1;
+    public int paintSplat = 10;
+    public int lastPaintSplat = 10;
+
     public GameObject hitPoint;
     // Start is called before the first frame update
     void Start()
     {
         gridSize = new Vector3Int(gridSizeBox, gridSizeBox, gridSizeBox);
         gridExtents = new Vector3Int(gridSize.x / 2, gridSize.y / 2, gridSize.z / 2);
-        //splatExtents = new Vector2Int(splat.height / 2, splat.width / 2);
 
         //creates a texture 3d (grid)
-        texture3D = new Texture3D(gridSize.x, gridSize.y, gridSize.z, TextureFormat.ARGB32, true);
-        int pixelCount = gridSize.x * gridSize.y * gridSize.z;
+        texture3D = new Texture3D(gridSize.x * pixelMultiplyer, gridSize.y * pixelMultiplyer, gridSize.z * pixelMultiplyer, TextureFormat.ARGB32, true);
+        int pixelCount = (gridSize.x * pixelMultiplyer) * (gridSize.y * pixelMultiplyer) * (gridSize.z * pixelMultiplyer);
+        lastPaintSplat = paintSplat;
+        lastPixelMultipleyer = pixelMultiplyer;
         Color[] cols = new Color[pixelCount];
 
 
@@ -34,30 +40,32 @@ public class SplatterMap : NetworkBehaviour
         {
             mesh.material.SetVector("_worldPosition", transform.position);
             mesh.material.SetFloat("_gridSize", gridExtents.x);
+            mesh.material.SetFloat("_pixelMultiplyer", pixelMultiplyer);
+            mesh.material.SetFloat("_paintSplat", paintSplat);
         }
         //searches through the grid and adds paint to the corners of a 40 * 40 grid (-20, 20)
-        for (int i = 0; i < gridSize.x; i++)//x
-            for (int j = 0; j < gridSize.y; j++)//y
-                for (int k = 0; k < gridSize.z; k++)//z
-                {
-                    //top left
-                    if (i >= 5 && i <= 10 && k >= 30 && k <= 35)
-                    {
-                        cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
-                    }
-                    //top right
-                    else if (i >= 30 && i <= 35 && k >= 30 && k <= 35)
-                        cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
-                    //bottom left
-                    else if (i >= 5 && i <= 10 && k >= 5 && k <= 10)
-                        cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
-                    //bottom right
-                    else if (i >= 30 && i <= 35 && k >= 5 && k <= 10)
-                        cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
-                    //everywhere else
-                    else
-                        cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(0, 0, 0, 1);
-                }
+        //for (int i = 0; i < gridSize.x; i++)//x
+        //    for (int j = 0; j < gridSize.y; j++)//y
+        //        for (int k = 0; k < gridSize.z; k++)//z
+        //        {
+        //            //top left
+        //            if (i >= 5 && i <= 10 && k >= 30 && k <= 35)
+        //            {
+        //                cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
+        //            }
+        //            //top right
+        //            else if (i >= 30 && i <= 35 && k >= 30 && k <= 35)
+        //                cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
+        //            //bottom left
+        //            else if (i >= 5 && i <= 10 && k >= 5 && k <= 10)
+        //                cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
+        //            //bottom right
+        //            else if (i >= 30 && i <= 35 && k >= 5 && k <= 10)
+        //                cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
+        //            //everywhere else
+        //            else
+        //                cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(0, 0, 0, 1);
+        //        }
 
         texture3D.SetPixels(cols);
         texture3D.Apply();
@@ -103,6 +111,13 @@ public class SplatterMap : NetworkBehaviour
         //    // upating texture buffer
         //    texture3D.Apply();
         //}
+        if (paintSplat != lastPaintSplat)
+            foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
+            {
+
+                mesh.material.SetFloat("_paintSplat", paintSplat);
+                lastPaintSplat = paintSplat;
+            }
     }
 
     [Command(requiresAuthority = false)]
@@ -122,10 +137,10 @@ public class SplatterMap : NetworkBehaviour
     public void UpdatePaint(Vector3 collisionPosition)
     {
         Vector3 position = collisionPosition - this.transform.position;
-        Vector3Int pixelPosition = new Vector3Int((int)position.x - gridExtents.x, (int)position.y - gridExtents.y, (int)position.z - gridExtents.z);
+        Vector3Int pixelPosition = new Vector3Int(((int)position.x - gridExtents.x) * pixelMultiplyer, ((int)position.y - gridExtents.y) * pixelMultiplyer, ((int)position.z - gridExtents.z) *pixelMultiplyer);
         //Vector3Int pixelPosition = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
         texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
-        int paintRadius =1;
+        int paintRadius = 20 / pixelMultiplyer;
         //Debug.Log("Raw Position : " + position);
         //Debug.Log("Splatter map position: " + pixelPosition);
         for (int i = pixelPosition.x - paintRadius; i < pixelPosition.x + paintRadius; i++)
@@ -137,14 +152,14 @@ public class SplatterMap : NetworkBehaviour
                 for (int k = pixelPosition.z - paintRadius; k < pixelPosition.z + paintRadius; k++)
                 {
                     //Makes it look more splatty with smaller radius'
-                    Vector3 delta = new Vector3(i - pixelPosition.x, j - pixelPosition.y, k - pixelPosition.z);
-                    if (delta.magnitude < paintRadius /* paintRadius*/)
-                    {
+                    //Vector3 delta = new Vector3(i - pixelPosition.x, j - pixelPosition.y, k - pixelPosition.z);
+                    //if (delta.magnitude < paintRadius /* paintRadius*/)
+                    //{
                         //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
                         texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
                         //hitPoint.transform.position = pixelPosition;
                         //Debug.Log("Splatter map position: " + pixelPosition);
-                    }
+                    //}
                 }
             }
         }

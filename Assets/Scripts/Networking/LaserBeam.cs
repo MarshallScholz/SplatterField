@@ -101,7 +101,7 @@ public class LaserBeam : NetworkBehaviour {
         gunTransform.position + bulletOffset,
         Quaternion.LookRotation(gunTransform.forward));
         Bullet bullet = go.GetComponent<Bullet>();
-        bullet.velocity = gunTransform.right * 5;
+        bullet.velocity = gunTransform.right;
 
         NetworkServer.Spawn(bullet.gameObject);
 
