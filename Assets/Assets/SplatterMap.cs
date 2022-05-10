@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class SplatterMap : MonoBehaviour
+public class SplatterMap : NetworkBehaviour
 {
     Texture3D texture3D;
     public Transform cube;
@@ -104,6 +105,19 @@ public class SplatterMap : MonoBehaviour
         //}
     }
 
+    [Command]
+    public void CmdUpdatePaint(Vector3 collisionPoint)
+    {
+        //tells all clients to do it
+        RpcUpdatePaint(collisionPoint);
+    }
+
+    [ClientRpc]
+    void RpcUpdatePaint(Vector3 collisionPoint)
+    {
+        UpdatePaint(collisionPoint);
+    }
+
     //LOOK AT ARTICLE TO OPTIMIZE upto 15x faster https://answers.unity.com/questions/266170/for-different-texture-sizes-which-is-faster-setpix.html
     public void UpdatePaint(Vector3 collisionPosition)
     {
@@ -128,7 +142,7 @@ public class SplatterMap : MonoBehaviour
                     {
                         //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
                         texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
-                        hitPoint.transform.position = pixelPosition;
+                        //hitPoint.transform.position = pixelPosition;
                         //Debug.Log("Splatter map position: " + pixelPosition);
                     }
                 }

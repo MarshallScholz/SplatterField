@@ -36,13 +36,13 @@ namespace MirrorNetwork
             if(other.GetComponent<Health>())
                 other.GetComponent<Health>().ApplyDamage(10);
 
-            if (other.GetComponentInParent<SplatterMap>())
+            if (other.GetComponentInParent<Transform>().GetComponentInParent<SplatterMap>())
             {
                 //collisionEvents[i].colliderComponent.transform.position;
                 Vector3 collisionPoint = other.ClosestPoint(this.transform.position);
                 //Vector3 pos = collisionEvents[i].colliderComponent.transform.position;
-
-                other.GetComponentInParent<Transform>().GetComponentInParent<SplatterMap>().UpdatePaint(collisionPoint);
+                SplatterMap splatterMap = other.GetComponentInParent<SplatterMap>();
+                NetworkCommands.instance.UpdateSplatterMap(splatterMap,collisionPoint);
             }
 
             NetworkServer.Destroy(this.gameObject);

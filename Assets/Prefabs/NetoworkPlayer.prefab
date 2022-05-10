@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 6374533880891289128}
   - component: {fileID: -2944543845283095555}
   - component: {fileID: 6660816373349228083}
+  - component: {fileID: 2021018085694467399}
   m_Layer: 0
   m_Name: NetoworkPlayer
   m_TagString: Untagged
@@ -857,7 +858,7 @@ MonoBehaviour:
     m_Bits: 0
   particleSystem: {fileID: 0}
   audioSource: {fileID: 0}
-  playerSpeed: 0.5
+  playerSpeed: 2
   rotateSpeed: 1
 --- !u!143 &628861711684450797
 CharacterController:
@@ -976,6 +977,18 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 1
   animator: {fileID: 4818150491942422666}
+--- !u!114 &2021018085694467399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877112918443055075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9cc4bcba8add72469d71ba468802f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2219064449073669598
 GameObject:
   m_ObjectHideFlags: 0
