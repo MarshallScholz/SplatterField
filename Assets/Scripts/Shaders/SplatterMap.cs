@@ -54,6 +54,8 @@ public class SplatterMap : NetworkBehaviour
             mesh.material.SetFloat("_gridSize", gridExtents.x);
             mesh.material.SetFloat("_pixelMultiplyer", pixelMultiplyer);
             mesh.material.SetFloat("_paintSplat", paintSplat);
+            mesh.material.SetTexture("_PaintColour", currentColour);
+
         }
 
         texture3D.SetPixels(cols);
