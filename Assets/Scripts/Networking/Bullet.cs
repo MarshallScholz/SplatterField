@@ -55,6 +55,22 @@ namespace MirrorNetwork
                 other.gameObject.GetComponentInParent<SplatterMap>().CmdUpdatePaint(collisionPoint);
 
 
+                //RaycastHit hit;
+                //if (!Physics.Raycast(Camera.main.ScreenPointToRay(other.collider.ClosestPoint(this.transform.position)), out hit))
+                //    return;
+
+                //Renderer rend = hit.transform.GetComponent<Renderer>();
+                //MeshCollider meshCollider = hit.collider as MeshCollider;
+
+                //Vector2 collisionPointRaw = hit.textureCoord;
+
+                //if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial.mainTexture == null || meshCollider == null)
+                //    return;
+
+                //other.gameObject.GetComponentInParent<SplatterMap>().CmdUpdatePaint(collisionPoint);
+
+
+
             }
 
             NetworkServer.Destroy(this.gameObject);

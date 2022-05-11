@@ -21,6 +21,8 @@ public class SplatterMap : NetworkBehaviour
     public int paintSplat = 10;
     public int lastPaintSplat = 10;
 
+    public Vector3 paintOffset;
+
     public GameObject hitPoint;
 
     public float minPaintArea = 1;
@@ -154,10 +156,13 @@ public class SplatterMap : NetworkBehaviour
     {
         //collisionPosition += new Vector3(1, 0, 1);
         Vector3 position = collisionPosition - this.transform.position;
-        Vector3Int pixelPosition = new Vector3Int(((int)position.x - gridExtents.x) * pixelMultiplyer, ((int)position.y - gridExtents.y) * pixelMultiplyer, ((int)position.z - gridExtents.z) *pixelMultiplyer);
+
+        //========================== Added offset for better splat centers ====================================
+        Vector3Int pixelPosition = new Vector3Int((Mathf.RoundToInt(position.x - gridExtents.x + paintOffset.x) * pixelMultiplyer), (Mathf.RoundToInt(position.y - gridExtents.y + paintOffset.y) * pixelMultiplyer), (Mathf.RoundToInt(position.z - gridExtents.z + paintOffset.z) * pixelMultiplyer));
+        //Vector3 pixelPosition = collisionPosition;
         //Vector3Int pixelPosition = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
         texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
-        int paintRadius = 1 * pixelMultiplyer;
+        int paintRadius = 3 * pixelMultiplyer;
         //Debug.Log("Raw Position : " + position);
         //Debug.Log("Splatter map position: " + pixelPosition);
         for (int i = pixelPosition.x - paintRadius; i < pixelPosition.x + paintRadius; i++)
@@ -179,7 +184,7 @@ public class SplatterMap : NetworkBehaviour
                     }
                     else
                     {
-                        //decrease the drawchance as the i, j and k values increase to make nicer looking splats
+                        //decrease the drawchance as the i, j and k values increase to make nicer looking splats2
                         float drawPixel = Random.Range(0, 100);
                         if(drawChance > drawPixel)
                         {
