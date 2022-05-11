@@ -50,6 +50,30 @@ Material:
         m_Texture: {fileID: 2800000, guid: dc035375c172992479def40691c2378a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_b769428cda994715911400268d7f3650:
+        m_Texture: {fileID: 2800000, guid: 0ca6a197437958c44ba5f1d45f326e1a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_c2a20e507d2b460ca9730fabc0849d72:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_494088924c8043ae8993a6d3da1b9af3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 2b99f0294fbead04c982891ea9dffe34, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PaintColour:
+        m_Texture: {fileID: 2800000, guid: dc035375c172992479def40691c2378a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureMask1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _voxels:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -67,6 +91,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_5d10fdebd3464a25afc2f73a14320f57: 6.65
     - Vector1_bd8d8f83a6664520ad398148f7ee1c4b: 180
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
@@ -116,6 +141,8 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     - _gridSize: 40
+    - _paintSplat: 3.12
+    - _pixelMultiplyer: 1
     m_Colors:
     - Vector3_a0ad7a0e80f4419db9a93234610ac091: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}

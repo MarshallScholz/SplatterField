@@ -27,61 +27,12 @@ public class SplatterMap : NetworkBehaviour
 
     public float minPaintArea = 1;
     public float drawChance = 50;
+
+    public Color paintColour = new Color(1, 0, 0, 0);
     // Start is called before the first frame update
     void Start()
     {
-        gridSize = new Vector3Int(gridSizeBox, gridSizeBox, gridSizeBox);
-        gridExtents = new Vector3Int(gridSize.x / 2, gridSize.y / 2, gridSize.z / 2);
-
-        //creates a texture 3d (grid)
-        texture3D = new Texture3D(gridSize.x * pixelMultiplyer, gridSize.y * pixelMultiplyer, gridSize.z * pixelMultiplyer, TextureFormat.ARGB32, true);
-        int pixelCount = (gridSize.x * pixelMultiplyer) * (gridSize.y * pixelMultiplyer) * (gridSize.z * pixelMultiplyer);
-        lastPaintSplat = paintSplat;
-        lastPixelMultipleyer = pixelMultiplyer;
-        Color[] cols = new Color[pixelCount];
-
-        UpdateColour(currentColour);
-        foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
-        {
-            mesh.material.SetVector("_worldPosition", transform.position);
-            mesh.material.SetFloat("_gridSize", gridExtents.x);
-            mesh.material.SetFloat("_pixelMultiplyer", pixelMultiplyer);
-            mesh.material.SetFloat("_paintSplat", paintSplat);
-        }
-        //searches through the grid and adds paint to the corners of a 40 * 40 grid (-20, 20)
-        //for (int i = 0; i < gridSize.x; i++)//x
-        //    for (int j = 0; j < gridSize.y; j++)//y
-        //        for (int k = 0; k < gridSize.z; k++)//z
-        //        {
-        //            //top left
-        //            if (i >= 5 && i <= 10 && k >= 30 && k <= 35)
-        //            {
-        //                cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
-        //            }
-        //            //top right
-        //            else if (i >= 30 && i <= 35 && k >= 30 && k <= 35)
-        //                cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
-        //            //bottom left
-        //            else if (i >= 5 && i <= 10 && k >= 5 && k <= 10)
-        //                cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
-        //            //bottom right
-        //            else if (i >= 30 && i <= 35 && k >= 5 && k <= 10)
-        //                cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(1, 1, 1, 1);
-        //            //everywhere else
-        //            else
-        //                cols[i + j * gridSize.x + k * gridSize.y * gridSize.z] = new Color(0, 0, 0, 1);
-        //        }
-
-        texture3D.SetPixels(cols);
-        texture3D.Apply();
-
-        //Sets "_voxels" in each shader to textured3D, so all gameobjects using this are updated at the same time when the texture3D updates
-        foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
-        {
-            mesh.material.SetTexture("_voxels", texture3D);
-        }
-
-        //Cursor.lockState = CursorLockMode.Locked;
+        ResetSplatterMap();
     }
 
     void ResetSplatterMap()
@@ -111,7 +62,7 @@ public class SplatterMap : NetworkBehaviour
         //Sets "_voxels" in each shader to textured3D, so all gameobjects using this are updated at the same time when the texture3D updates
         foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
         {
-            mesh.material.SetTexture("_voxels", texture3D);
+            mesh.material.SetTexture("_TextureMask1", texture3D);
         }
     }
 
@@ -133,6 +84,15 @@ public class SplatterMap : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //Cursor.lockState = CursorLockMode.None;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            paintColour = new Color(1, 0, 0, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            paintColour = new Color(0, 1, 0, 1);
         }
     }
 
@@ -161,7 +121,7 @@ public class SplatterMap : NetworkBehaviour
         Vector3Int pixelPosition = new Vector3Int((Mathf.RoundToInt(position.x - gridExtents.x + paintOffset.x) * pixelMultiplyer), (Mathf.RoundToInt(position.y - gridExtents.y + paintOffset.y) * pixelMultiplyer), (Mathf.RoundToInt(position.z - gridExtents.z + paintOffset.z) * pixelMultiplyer));
         //Vector3 pixelPosition = collisionPosition;
         //Vector3Int pixelPosition = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
-        texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
+        texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, paintColour);
         int paintRadius = 3 * pixelMultiplyer;
         //Debug.Log("Raw Position : " + position);
         //Debug.Log("Splatter map position: " + pixelPosition);
@@ -178,17 +138,18 @@ public class SplatterMap : NetworkBehaviour
                     if (delta.magnitude < paintRadius / minPaintArea /* paintRadius*/)
                     {
                         //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-                        texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
+                        texture3D.SetPixel(i, j, k, paintColour);
                         //hitPoint.transform.position = pixelPosition;
                         //Debug.Log("Splatter map position: " + pixelPosition);
                     }
                     else
                     {
                         //decrease the drawchance as the i, j and k values increase to make nicer looking splats2
+                        //USE A NOISE INSTEAD?
                         float drawPixel = Random.Range(0, 100);
                         if(drawChance > drawPixel)
                         {
-                            texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
+                            texture3D.SetPixel(i, j, k, paintColour);
                         }
                     }
                 }
