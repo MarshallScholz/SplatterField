@@ -884,11 +884,13 @@ MonoBehaviour:
   marker: {fileID: 7687554047777192684}
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   particleSystem: {fileID: 0}
   audioSource: {fileID: 0}
   playerSpeed: 5
-  rotateSpeed: 180
+  rotateSpeed: 1
+  jumpForce: 2
+  playerVelocity: {x: 0, y: 0, z: 0}
 --- !u!143 &628861711684450797
 CharacterController:
   m_ObjectHideFlags: 0

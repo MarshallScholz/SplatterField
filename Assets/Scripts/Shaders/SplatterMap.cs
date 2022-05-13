@@ -28,6 +28,9 @@ public class SplatterMap : NetworkBehaviour
     public float minPaintArea = 1;
     public float drawChance = 50;
 
+    public float player1Score = 0;
+    public float player2Score = 0;
+
     public Color paintColour = new Color(1, 0, 0, 0);
     // Start is called before the first frame update
     void Start()
@@ -140,7 +143,27 @@ public class SplatterMap : NetworkBehaviour
                     if (delta.magnitude < paintRadius / minPaintArea /* paintRadius*/)
                     {
                         //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+                        Color previousColour = texture3D.GetPixel(i, j, k);
                         texture3D.SetPixel(i, j, k, paintColour);
+                        Color currentColour = texture3D.GetPixel(i, j, k);
+
+                        if (previousColour == new Color(0, 1, 0, 1))
+                        {                            
+                            player1Score--;
+                        }
+                        else if(previousColour == new Color(1, 0, 0, 1))
+                        {
+                            player2Score--;
+                        }
+
+                        if (currentColour == new Color(1, 0, 0, 1))
+                        {
+                            player1Score++;
+                        }
+                        else if (currentColour == new Color(0, 1, 0, 1))
+                        {
+                            player2Score++;
+                        }
                         //hitPoint.transform.position = pixelPosition;
                         //Debug.Log("Splatter map position: " + pixelPosition);
                     }
