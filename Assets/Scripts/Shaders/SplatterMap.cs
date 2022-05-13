@@ -143,6 +143,7 @@ public class SplatterMap : NetworkBehaviour
                     if (delta.magnitude < paintRadius / minPaintArea /* paintRadius*/)
                     {
                         //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+                        //NOT WORKING BECAUSE THE PIXEL COLOUR WOULD BE THE PAINTED TEXTURES PIXEL COLOUR. NOT RGB FROM HERE
                         Color previousColour = texture3D.GetPixel(i, j, k);
                         texture3D.SetPixel(i, j, k, paintColour);
                         Color currentColour = texture3D.GetPixel(i, j, k);
