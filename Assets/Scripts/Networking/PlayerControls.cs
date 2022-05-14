@@ -27,6 +27,7 @@ public class PlayerControls : NetworkBehaviour
         ignoreLayer = LayerMask.GetMask("Ignore Raycast");
         audioSource = GetComponent<AudioSource>();
         cc = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
 
         //attatch player to camera if local player
         if (CameraController.instance != null && isLocalPlayer)
@@ -40,8 +41,7 @@ public class PlayerControls : NetworkBehaviour
             return;
 
         float forward = Input.GetAxis("Vertical");
-        //float turn = Input.GetAxis("Horizontal");
-        float turn = 0;
+        float turn = Input.GetAxis("Horizontal");
         animator.SetFloat("Forward", Mathf.Abs(forward), smooth, Time.deltaTime);
         animator.SetFloat("Sense", Mathf.Sign(forward), smooth, Time.deltaTime);
         //animator.SetFloat("Turn", turn, smooth, Time.deltaTime);
@@ -105,11 +105,14 @@ public class PlayerControls : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 rawtoRotation = new Vector3(marker.transform.position.x, 0, marker.transform.position.z);
-        Quaternion toRotation = Quaternion.FromToRotation(transform.forward, rawtoRotation);
+        //Vector3 rawtoRotation = new Vector3(marker.transform.position.x, 0, marker.transform.position.z);
+        //Quaternion toRotation = Quaternion.FromToRotation(transform.forward, rawtoRotation);
         //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 0.5f * Time.time);
         //transform.LookAt(new Vector3(marker.transform.position.x, 0, marker.transform.position.z));
         //transform.Rotate(0f, Input.mousePosition.x, 0f, Space.World);
+
+        float yawCamera = Camera.main.transform.rotation.eulerAngles.y;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), rotateSpeed * Time.deltaTime);
     }
 
     [Command]
