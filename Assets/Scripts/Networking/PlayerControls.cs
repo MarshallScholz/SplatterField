@@ -40,7 +40,8 @@ public class PlayerControls : NetworkBehaviour
             return;
 
         float forward = Input.GetAxis("Vertical");
-        float turn = Input.GetAxis("Horizontal");
+        //float turn = Input.GetAxis("Horizontal");
+        float turn = 0;
         animator.SetFloat("Forward", Mathf.Abs(forward), smooth, Time.deltaTime);
         animator.SetFloat("Sense", Mathf.Sign(forward), smooth, Time.deltaTime);
         //animator.SetFloat("Turn", turn, smooth, Time.deltaTime);
@@ -81,20 +82,34 @@ public class PlayerControls : NetworkBehaviour
 
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit))
-        {
-            marker.transform.position = hit.point;
-            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
-        }
-        else
-        {
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
-            marker.transform.position = ray.direction * 100;
-        }
-        transform.LookAt(new Vector3(marker.transform.position.x, 0, marker.transform.position.z));
+        //if (Physics.Raycast(ray, out hit))
+        //{
+        //    marker.transform.position = hit.point;
+        //    Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+        //}
+        //else
+        //{
+        //    Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
+        //    marker.transform.position = ray.direction * 100;
+        //}
+                                                               //players height
+        marker.transform.position = transform.position + (ray.direction * 5) + new Vector3(0, 1.8f, 0);
+        //Quaternion toRotation = Quaternion.FromToRotation(transform.forward, marker.transform.position);
+
+        //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 1 * Time.time);
+        //transform.LookAt(new Vector3(marker.transform.position.x, 0, marker.transform.position.z));
         CmdLook(marker.transform.position);
 
 
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 rawtoRotation = new Vector3(marker.transform.position.x, 0, marker.transform.position.z);
+        Quaternion toRotation = Quaternion.FromToRotation(transform.forward, rawtoRotation);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 0.5f * Time.time);
+        //transform.LookAt(new Vector3(marker.transform.position.x, 0, marker.transform.position.z));
+        //transform.Rotate(0f, Input.mousePosition.x, 0f, Space.World);
     }
 
     [Command]

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
@@ -19,8 +20,10 @@ public class CameraController : MonoBehaviour
 
     public Vector3 offset;
 
+
     //singleston pattern - this is the one and only CameraController
     public static CameraController instance;
+    public CinemachineVirtualCamera cm;
 
     private void Awake()
     {
@@ -29,6 +32,8 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cam = this.GetComponent<Transform>();
+        cm = GetComponent<CinemachineVirtualCamera>();
+        cm.Follow = target;
     }
 
     // Update is called once per frame
@@ -56,7 +61,7 @@ public class CameraController : MonoBehaviour
         //angles.y += dy * speed * Time.deltaTime;
         //transform.eulerAngles = angles;
 
-        //transform.LookAt(target.transform);
+        //transform.LookAt(target.transform.position * speed * Time.deltaTime);
         //transform.rotation = target.transform.rotation * Time.deltaTime;
 
         if (target == null)
