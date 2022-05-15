@@ -28,21 +28,21 @@ public class CharacterMovementNoCamera : MonoBehaviour
 
     void FixedUpdate()
     {
-        var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        var speed = input.y;
-        speed = Mathf.Clamp(speed, -1f, 1f);
-        speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref currentVelocity.y, Damping);
-        anim.SetFloat("Speed", speed);
-        anim.SetFloat("Direction", speed);
+        //var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        //var speed = input.y;
+        //speed = Mathf.Clamp(speed, -1f, 1f);
+        //speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref currentVelocity.y, Damping);
+        //anim.SetFloat("Speed", speed);
+        //anim.SetFloat("Direction", speed);
 
-        // set sprinting
-        isSprinting = (Input.GetKey(sprintJoystick) || Input.GetKey(sprintKeyboard)) && speed > 0;
-        anim.SetBool("isSprinting", isSprinting);
+        //// set sprinting
+        //isSprinting = (Input.GetKey(sprintJoystick) || Input.GetKey(sprintKeyboard)) && speed > 0;
+        //anim.SetBool("isSprinting", isSprinting);
 
         // strafing
-        currentStrafeSpeed = Mathf.SmoothDamp(
-            currentStrafeSpeed, input.x * StrafeSpeed, ref currentVelocity.x, Damping);
-        transform.position += transform.TransformDirection(Vector3.right) * currentStrafeSpeed;
+        //currentStrafeSpeed = Mathf.SmoothDamp(
+        //    currentStrafeSpeed, input.x * StrafeSpeed, ref currentVelocity.x, Damping);
+        //transform.position += transform.TransformDirection(Vector3.right) * currentStrafeSpeed;
 
         var rotInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         var rot = transform.eulerAngles;

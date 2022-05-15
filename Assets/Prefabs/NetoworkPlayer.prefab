@@ -900,6 +900,12 @@ MonoBehaviour:
   rotateSpeed: 1
   jumpForce: 2
   playerVelocity: {x: 0, y: 0, z: 0}
+  CM_target: {fileID: 8808436955370121781}
+  StrafeSpeed: 0.1
+  TurnSpeed: 3
+  Damping: 0.2
+  VerticalRotMin: -80
+  VerticalRotMax: 80
 --- !u!143 &628861711684450797
 CharacterController:
   m_ObjectHideFlags: 0

@@ -41,6 +41,11 @@ public class Health : NetworkBehaviour
         // update our health bar
         if (healthBar)
             healthBar.UpdateMeter();
+
+        if(health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
 
