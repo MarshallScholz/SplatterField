@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 
-public class SplatterMap : NetworkBehaviour
+public class SingePlayerSplatterMap : MonoBehaviour
 {
     Texture3D texture3D;
     public Transform cube;
@@ -101,21 +100,6 @@ public class SplatterMap : NetworkBehaviour
         }
     }
 
-
-
-    [Command(requiresAuthority = false)]
-    public void CmdUpdatePaint(Vector3 collisionPoint)
-    {
-        //tells all clients to do it
-        RpcUpdatePaint(collisionPoint);
-    }
-
-    [ClientRpc]
-    void RpcUpdatePaint(Vector3 collisionPoint)
-    {
-        UpdatePaint(collisionPoint);
-    }
-
     //LOOK AT ARTICLE TO OPTIMIZE upto 15x faster https://answers.unity.com/questions/266170/for-different-texture-sizes-which-is-faster-setpix.html
     public void UpdatePaint(Vector3 collisionPosition)
     {
@@ -147,11 +131,11 @@ public class SplatterMap : NetworkBehaviour
                         Color previousColour = texture3D.GetPixel(i, j, k);
                         texture3D.SetPixel(i, j, k, paintColour);
                         Color currentColour = texture3D.GetPixel(i, j, k);
-                        if (previousColour == new Color(0, 1, 0, 1) &&  currentColour == new Color(1, 0, 0, 1))
-                        {                            
+                        if (previousColour == new Color(0, 1, 0, 1) && currentColour == new Color(1, 0, 0, 1))
+                        {
                             player1Score--;
                         }
-                        else if(previousColour == new Color(1, 0, 0, 1) && currentColour == new Color(0, 1, 0, 1))
+                        else if (previousColour == new Color(1, 0, 0, 1) && currentColour == new Color(0, 1, 0, 1))
                         {
                             player2Score--;
                         }
@@ -172,7 +156,7 @@ public class SplatterMap : NetworkBehaviour
                         //decrease the drawchance as the i, j and k values increase to make nicer looking splats2
                         //USE A NOISE INSTEAD?
                         float drawPixel = Random.Range(0, 100);
-                        if(drawChance > drawPixel)
+                        if (drawChance > drawPixel)
                         {
                             texture3D.SetPixel(i, j, k, paintColour);
                         }
@@ -189,34 +173,10 @@ public class SplatterMap : NetworkBehaviour
     public void UpdateColour(Texture2D newColour)
     {
         currentColour = newColour;
-        foreach (MeshRenderer mesh in FindObjectOfType<SplatterMap>().GetComponentsInChildren<MeshRenderer>())
+        foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
         {
             mesh.material.SetTexture("_PaintColour", currentColour);
         }
     }
 }
 
-
-//Vector3 position = this.transform.position - collisionPosition;
-//Vector3Int pixelPosition = new Vector3Int((int)collisionPosition.x, (int)collisionPosition.y, (int)collisionPosition.z);
-//texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
-
-//for (int i = pixelPosition.x - 2; i < pixelPosition.x + 2; i++)
-//{
-//    //y
-//    for (int j = pixelPosition.y - 2; j < pixelPosition.y + 2; j++)
-//    {
-//        //z
-//        for (int k = pixelPosition.z - 2; k < pixelPosition.z + 2; k++)
-//        {
-//            Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-//            texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
-//            //point.transform.position = pixelLocation;
-//            Debug.Log(pixelLocation);
-
-//        }
-//    }
-//}
-////sending data to GPU
-//// upating texture buffer
-//texture3D.Apply();
