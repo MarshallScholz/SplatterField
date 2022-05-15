@@ -19,9 +19,9 @@ public class SinglePlayerShoot : MonoBehaviour
     {
         // turn off the linerenderer
         //ShowLaser(false);
-        CharacterMovement cm = GetComponent<CharacterMovement>();
-        if (cm)
-            index = cm.index;
+        //CharacterMovement cm = GetComponent<CharacterMovement>();
+        //if (cm)
+        //    index = cm.index;
     }
 
     // Update is called once per frame

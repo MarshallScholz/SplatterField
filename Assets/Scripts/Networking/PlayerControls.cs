@@ -42,62 +42,55 @@ public class PlayerControls : NetworkBehaviour
     }
     void Update()
     {
+
+        
+
+    }
+
+    private void FixedUpdate()
+    {
         if (!isLocalPlayer)
             return;
 
         float forward = Input.GetAxis("Vertical");
         float turn = Input.GetAxis("Horizontal");
-        animator.SetFloat("Forward", Mathf.Abs(forward), smooth, Time.deltaTime);
-        animator.SetFloat("Sense", Mathf.Sign(forward), smooth, Time.deltaTime);
+        animator.SetFloat("Forward", Mathf.Abs(forward), smooth, Time.fixedDeltaTime);
+        animator.SetFloat("Sense", Mathf.Sign(forward), smooth, Time.fixedDeltaTime);
         //animator.SetFloat("Turn", turn, smooth, Time.deltaTime);
 
         //Vector3 rotation = (Vector3.up * turn) * (rotateSpeed * Time.deltaTime);
-
         // Vector3 playerMovement = (transform.forward * forward * playerSpeed + Physics.gravity) * Time.deltaTime;
-        Vector3 playerMovement = (transform.forward * forward * playerSpeed + transform.right * turn * playerSpeed) * Time.deltaTime;
+        Vector3 playerMovement = (transform.forward * forward * playerSpeed + transform.right * turn * playerSpeed) * Time.fixedDeltaTime;
 
         //transform.eulerAngles += rotation;
-        cc.Move(playerMovement);
 
 
         RaycastHit hit;
         Vector3 thisPosition = Camera.main.transform.position;
 
-        // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, -transform.up, out hit, 0.3f))
+        cc.Move(playerVelocity * Time.fixedDeltaTime);
+
+        if (cc.isGrounded == false)
+        {
+            playerVelocity.y += Physics.gravity.y * Time.fixedDeltaTime;
+        }
+
+        if (cc.isGrounded)
         {
             Debug.Log("can jump");
-            Debug.DrawRay(transform.position, -transform.up * hit.distance, Color.yellow);
+            playerVelocity.y = -Physics.gravity.y * Time.fixedDeltaTime;
             //feetHitPosition.position = hit.point;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 playerVelocity.y += Mathf.Sqrt(jumpForce * -3.0f * Physics.gravity.y);
             }
-            else
-            {
-                playerVelocity.y = 0;
-            }
 
         }
 
-        playerVelocity.y += Physics.gravity.y * Time.deltaTime;
-        cc.Move(playerVelocity * Time.deltaTime);
+        cc.Move(playerMovement);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        //if (Physics.Raycast(ray, out hit))
-        //{
-        //    marker.transform.position = hit.point;
-        //    Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
-        //}
-        //else
-        //{
-        //    Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
-        //    marker.transform.position = ray.direction * 100;
-        //}
-                                                                 //players height
         marker.transform.position = transform.position + (ray.direction * 5) + new Vector3(0, 1.8f, 0);
         //Quaternion toRotation = Quaternion.FromToRotation(transform.forward, marker.transform.position);
 
@@ -123,19 +116,6 @@ public class PlayerControls : NetworkBehaviour
             rot.x = Mathf.Clamp(rot.x, verticalRotMin, verticalRotMax);
             CM_target.localRotation = Quaternion.Euler(rot);
         }
-
-    }
-
-    private void FixedUpdate()
-    {
-        //Vector3 rawtoRotation = new Vector3(marker.transform.position.x, 0, marker.transform.position.z);
-        //Quaternion toRotation = Quaternion.FromToRotation(transform.forward, rawtoRotation);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 0.5f * Time.time);
-        //transform.LookAt(new Vector3(marker.transform.position.x, 0, marker.transform.position.z));
-        //transform.Rotate(0f, Input.mousePosition.x, 0f, Space.World);
-
-        //float yawCamera = Camera.main.transform.rotation.eulerAngles.y;
-        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), rotateSpeed * Time.deltaTime);
     }
 
     [Command]

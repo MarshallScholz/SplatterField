@@ -21,6 +21,7 @@ public class LaserBeam : NetworkBehaviour {
     {
         // turn off the linerenderer
         //ShowLaser(false);
+        //==================CHANGE THIS TO PLAYERCONTROLS
         CharacterMovement cm = GetComponent<CharacterMovement>();
         if (cm)
             index = cm.index;

@@ -52,7 +52,7 @@ namespace MirrorNetwork
                 //collisionEvents[i].colliderComponent.transform.position;
                 Vector3 collisionPoint = other.collider.ClosestPoint(this.transform.position);
                 //Vector3 pos = collisionEvents[i].colliderComponent.transform.position;
-                other.gameObject.GetComponentInParent<SplatterMap>().UpdatePaint(collisionPoint);
+                other.gameObject.GetComponentInParent<SplatterMap>().CmdUpdatePaint(collisionPoint);
 
 
                 //RaycastHit hit;
