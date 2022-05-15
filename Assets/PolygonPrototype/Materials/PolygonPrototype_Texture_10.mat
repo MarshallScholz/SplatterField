@@ -25,6 +25,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2DArray_2b7ae89082774b7db6ae44c3004a32ed:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_b769428cda994715911400268d7f3650:
         m_Texture: {fileID: 2800000, guid: 0ca6a197437958c44ba5f1d45f326e1a, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -126,7 +130,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PaintColour:
-        m_Texture: {fileID: 2800000, guid: 52b9d8791ea480146bc8d83c6b17e8ff, type: 3}
+        m_Texture: {fileID: 2800000, guid: dc035375c172992479def40691c2378a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -150,7 +154,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureMask1:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 11700000, guid: 836429d92e1b49443b7743362fdeb1fe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ThicknessMap:
@@ -302,6 +306,7 @@ Material:
     - _paintSplat: 3.12
     - _pixelMultiplyer: 1
     m_Colors:
+    - Color_946b2694b4174df9ac75d2e4d16f825c: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -320,7 +325,7 @@ Material:
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
     - _worldPosition: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &6713365694059453928
+--- !u!114 &4758711533411983574
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
