@@ -31,7 +31,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_b769428cda994715911400268d7f3650:
-        m_Texture: {fileID: 2800000, guid: 0ca6a197437958c44ba5f1d45f326e1a, type: 3}
+        m_Texture: {fileID: 2800000, guid: dc035375c172992479def40691c2378a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_c2a20e507d2b460ca9730fabc0849d72:
@@ -131,7 +131,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PaintColour:
-        m_Texture: {fileID: 2800000, guid: dc035375c172992479def40691c2378a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0ca6a197437958c44ba5f1d45f326e1a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -180,6 +180,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_5d10fdebd3464a25afc2f73a14320f57: 6.65
+    - Vector1_658e993bc90d499695306cfdbb0f7710: -2
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
