@@ -898,11 +898,12 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   playerSpeed: 5
   rotateSpeed: 1
-  jumpForce: 2
+  jumpForce: 1
   playerVelocity: {x: 0, y: 0, z: 0}
   CM_target: {fileID: 8808436955370121781}
   verticalRotMin: -80
   verticalRotMax: 80
+  playerMovement: {x: 0, y: 0, z: 0}
 --- !u!143 &628861711684450797
 CharacterController:
   m_ObjectHideFlags: 0
@@ -918,7 +919,7 @@ CharacterController:
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &6460653756196841669

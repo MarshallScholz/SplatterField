@@ -25,6 +25,11 @@ public class PlayerControls : NetworkBehaviour
     public float verticalRotMin = -80;
     public float verticalRotMax = 80;
 
+    public Vector3 playerMovement;
+
+    float forward;
+    float turn;
+
     //public Transform feetHitPosition;
 
     void Start()
@@ -42,9 +47,18 @@ public class PlayerControls : NetworkBehaviour
     }
     void Update()
     {
+        if (!isLocalPlayer)
+            return;
 
-        
+        forward = Input.GetAxis("Vertical");
+        turn = Input.GetAxis("Horizontal");
+        animator.SetFloat("Forward", Mathf.Abs(forward), smooth, Time.deltaTime);
+        animator.SetFloat("Sense", Mathf.Sign(forward), smooth, Time.deltaTime);
+        animator.SetFloat("Sideways", turn, smooth, Time.deltaTime);
 
+        //Vector3 rotation = (Vector3.up * turn) * (rotateSpeed * Time.deltaTime);
+        // Vector3 playerMovement = (transform.forward * forward * playerSpeed + Physics.gravity) * Time.deltaTime;
+       
     }
 
     private void FixedUpdate()
@@ -52,33 +66,12 @@ public class PlayerControls : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        float forward = Input.GetAxis("Vertical");
-        float turn = Input.GetAxis("Horizontal");
-        animator.SetFloat("Forward", Mathf.Abs(forward), smooth, Time.fixedDeltaTime);
-        animator.SetFloat("Sense", Mathf.Sign(forward), smooth, Time.fixedDeltaTime);
-        //animator.SetFloat("Turn", turn, smooth, Time.deltaTime);
-
-        //Vector3 rotation = (Vector3.up * turn) * (rotateSpeed * Time.deltaTime);
-        // Vector3 playerMovement = (transform.forward * forward * playerSpeed + Physics.gravity) * Time.deltaTime;
-        Vector3 playerMovement = (transform.forward * forward * playerSpeed + transform.right * turn * playerSpeed) * Time.fixedDeltaTime;
-
-        //transform.eulerAngles += rotation;
-
-
-        RaycastHit hit;
-        Vector3 thisPosition = Camera.main.transform.position;
-
-        cc.Move(playerVelocity * Time.fixedDeltaTime);
-
-        if (cc.isGrounded == false)
-        {
-            playerVelocity.y += Physics.gravity.y * Time.fixedDeltaTime;
-        }
-
+        //======Update the player's velocity
+        playerMovement = (transform.forward * forward * playerSpeed + transform.right * turn * playerSpeed / 2) * Time.fixedDeltaTime;
         if (cc.isGrounded)
         {
             Debug.Log("can jump");
-            playerVelocity.y = -Physics.gravity.y * Time.fixedDeltaTime;
+            playerVelocity.y = 0;
             //feetHitPosition.position = hit.point;
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -86,26 +79,25 @@ public class PlayerControls : NetworkBehaviour
             }
 
         }
+        playerVelocity.y += Physics.gravity.y * Time.fixedDeltaTime;
 
-        cc.Move(playerMovement);
+        //======update the player's movement from playerMovement(input) and playerVelocity(gravity and jumping) 
+        playerMovement = (transform.forward * forward * playerSpeed + transform.right * turn * playerSpeed) * Time.fixedDeltaTime;
+        cc.Move(playerVelocity * Time.fixedDeltaTime + playerMovement);
 
+        //========updates aiming position
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         marker.transform.position = transform.position + (ray.direction * 5) + new Vector3(0, 1.8f, 0);
-        //Quaternion toRotation = Quaternion.FromToRotation(transform.forward, marker.transform.position);
-
-        //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 1 * Time.time);
-        //transform.LookAt(new Vector3(marker.transform.position.x, 0, marker.transform.position.z));
         CmdLook(marker.transform.position);
 
 
-        //gets the mouse input to rotate the character
+        //=========gets the mouse input to rotate the character
         var rotInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         var rot = transform.eulerAngles;
         rot.y += rotInput.x * rotateSpeed;
         transform.rotation = Quaternion.Euler(rot);
-
-        //rotates the CM target so that the camera rotates correctly as well
+        //======rotates the CM target so that the camera rotates correctly as well
         if (CM_target != null)
         {
             rot = CM_target.localRotation.eulerAngles;
@@ -116,6 +108,13 @@ public class PlayerControls : NetworkBehaviour
             rot.x = Mathf.Clamp(rot.x, verticalRotMin, verticalRotMax);
             CM_target.localRotation = Quaternion.Euler(rot);
         }
+    }
+
+    private void LateUpdate()
+    {
+        if (!isLocalPlayer)
+            return;
+
     }
 
     [Command]
