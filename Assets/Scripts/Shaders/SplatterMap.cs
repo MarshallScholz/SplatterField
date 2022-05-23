@@ -32,6 +32,8 @@ public class SplatterMap : NetworkBehaviour
     public float player2Score = 0;
 
     public Color paintColour = new Color(1, 0, 0, 0);
+
+    public List<MeshRenderer> meshes;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,35 +54,53 @@ public class SplatterMap : NetworkBehaviour
         Color[] cols = new Color[pixelCount];
 
         UpdateColour(currentColour);
-        foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
-        {
-            mesh.material.SetVector("_worldPosition", transform.position);
-            mesh.material.SetFloat("_gridSize", gridExtents.x);
-            mesh.material.SetFloat("_pixelMultiplyer", pixelMultiplyer);
-            mesh.material.SetFloat("_paintSplat", paintSplat);
-            mesh.material.SetTexture("_PaintColour", currentColour);
 
+        //===================Creates a list of meshes to be updated =========================
+
+        foreach (GameObject gm in GameObject.FindGameObjectsWithTag("Paintable"))
+        {
+            MeshRenderer mesh = gm.GetComponent<MeshRenderer>();
+            if (mesh != null)
+            {
+                meshes.Add(mesh);
+                //mesh.material.SetVector("_worldPosition", transform.position);
+                //mesh.material.SetFloat("_gridSize", gridExtents.x);
+                //mesh.material.SetFloat("_pixelMultiplyer", pixelMultiplyer);
+                //mesh.material.SetFloat("_paintSplat", paintSplat);
+                //mesh.material.SetTexture("_PaintColour", currentColour);
+            }
+        }
+
+        for(int i = 0; i < meshes.Count; i++)
+        {
+            meshes[i].material.SetVector("_worldPosition", transform.position);
+            meshes[i].material.SetFloat("_gridSize", gridExtents.x);
+            meshes[i].material.SetFloat("_pixelMultiplyer", pixelMultiplyer);
+            meshes[i].material.SetFloat("_paintSplat", paintSplat);
+            meshes[i].material.SetTexture("_PaintColour", currentColour);
         }
 
         texture3D.SetPixels(cols);
         texture3D.Apply();
 
         //Sets "_voxels" in each shader to textured3D, so all gameobjects using this are updated at the same time when the texture3D updates
-        foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
+
+        for(int i = 0; i < meshes.Count; i++)
         {
-            mesh.material.SetTexture("_TextureMask1", texture3D);
+            meshes[i].material.SetTexture("_TextureMask1", texture3D);
         }
     }
 
     private void Update()
     {
         if (paintSplat != lastPaintSplat)
-            foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
+        {
+            for (int i = 0; i < meshes.Count; i++)
             {
-
-                mesh.material.SetFloat("_paintSplat", paintSplat);
+                meshes[i].material.SetFloat("_paintSplat", paintSplat);
                 lastPaintSplat = paintSplat;
             }
+        }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -190,9 +210,15 @@ public class SplatterMap : NetworkBehaviour
     public void UpdateColour(Texture2D newColour)
     {
         currentColour = newColour;
-        foreach (MeshRenderer mesh in FindObjectOfType<SplatterMap>().GetComponentsInChildren<MeshRenderer>())
+        //========================== COuld optimise to not do every gameobject ====================================
+        //foreach (MeshRenderer mesh in FindObjectOfType<SplatterMap>().GetComponentsInChildren<MeshRenderer>())
+        //{
+        //    mesh.material.SetTexture("_PaintColour", currentColour);
+        //}
+
+        for(int i = 0; i < meshes.Count; i++)
         {
-            mesh.material.SetTexture("_PaintColour", currentColour);
+            meshes[i].material.SetTexture("_PaintColour", currentColour);
         }
     }
 }
