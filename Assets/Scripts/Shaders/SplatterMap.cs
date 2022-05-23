@@ -47,7 +47,7 @@ public class SplatterMap : NetworkBehaviour
         gridExtents = new Vector3Int(gridSize.x / 2, gridSize.y / 2, gridSize.z / 2);
 
         //creates a texture 3d (grid)
-        texture3D = new Texture3D(gridSize.x * pixelMultiplyer, gridSize.y * pixelMultiplyer, gridSize.z * pixelMultiplyer, TextureFormat.ARGB32, true);
+        texture3D = new Texture3D(gridSize.x * pixelMultiplyer, gridSize.y * pixelMultiplyer, gridSize.z * pixelMultiplyer, TextureFormat.R8, true);
         int pixelCount = (gridSize.x * pixelMultiplyer) * (gridSize.y * pixelMultiplyer) * (gridSize.z * pixelMultiplyer);
         lastPaintSplat = paintSplat;
         lastPixelMultipleyer = pixelMultiplyer;
@@ -63,11 +63,6 @@ public class SplatterMap : NetworkBehaviour
             if (mesh != null)
             {
                 meshes.Add(mesh);
-                //mesh.material.SetVector("_worldPosition", transform.position);
-                //mesh.material.SetFloat("_gridSize", gridExtents.x);
-                //mesh.material.SetFloat("_pixelMultiplyer", pixelMultiplyer);
-                //mesh.material.SetFloat("_paintSplat", paintSplat);
-                //mesh.material.SetTexture("_PaintColour", currentColour);
             }
         }
 
@@ -114,11 +109,11 @@ public class SplatterMap : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            paintColour = new Color(1, 0, 0, 1);
+            paintColour = new Color(0.3f, 0, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            paintColour = new Color(0, 1, 0, 1);
+            paintColour = new Color(1, 0, 0, 0);
         }
     }
 
