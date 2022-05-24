@@ -38,7 +38,7 @@ public class SplatterMap : NetworkBehaviour
     void Start()
     {
         ResetSplatterMap();
-        paintColour = new Color(1, 0, 0, 1);
+        paintColour = new Color(1, 0, 0, 0);
     }
 
     void ResetSplatterMap()
