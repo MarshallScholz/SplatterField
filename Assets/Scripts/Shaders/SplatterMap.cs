@@ -109,7 +109,7 @@ public class SplatterMap : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            paintColour = new Color(0.3f, 0, 0, 0);
+            paintColour = new Color(0.4f, 0, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
