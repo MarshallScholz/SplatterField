@@ -11,9 +11,8 @@ public class SplatterMap : NetworkBehaviour
     //public GameObject point;
     //public Texture2D splat;
 
-    public int gridSizeBox;
-    Vector3Int gridSize;
-    Vector3Int gridExtents;
+    public Vector3Int gridSize;
+    Vector4 gridExtents;
     Vector2Int splatExtents;
 
     public int pixelMultiplyer = 1;
@@ -34,17 +33,20 @@ public class SplatterMap : NetworkBehaviour
     public Color paintColour = new Color(1, 0, 0, 0);
 
     public List<MeshRenderer> meshes;
+
+    Renderer renderer;
     // Start is called before the first frame update
     void Start()
     {
+        renderer = GetComponent<Renderer>();
         ResetSplatterMap();
         paintColour = new Color(1, 0, 0, 0);
     }
 
     void ResetSplatterMap()
     {
-        gridSize = new Vector3Int(gridSizeBox, gridSizeBox, gridSizeBox);
-        gridExtents = new Vector3Int(gridSize.x / 2, gridSize.y / 2, gridSize.z / 2);
+        gridSize = new Vector3Int(Mathf.RoundToInt(renderer.bounds.size.x), Mathf.RoundToInt(renderer.bounds.size.y), Mathf.RoundToInt(renderer.bounds.size.z));
+        gridExtents = new Vector4(gridSize.x / 2, gridSize.y / 2, gridSize.z / 2, 0);
 
         //creates a texture 3d (grid)
         texture3D = new Texture3D(gridSize.x * pixelMultiplyer, gridSize.y * pixelMultiplyer, gridSize.z * pixelMultiplyer, TextureFormat.R8, true);
@@ -69,7 +71,8 @@ public class SplatterMap : NetworkBehaviour
         for(int i = 0; i < meshes.Count; i++)
         {
             meshes[i].material.SetVector("_worldPosition", transform.position);
-            meshes[i].material.SetFloat("_gridSize", gridExtents.x);
+            //meshes[i].material.SetFloat("_gridSize", gridExtents.x);
+            meshes[i].material.SetVector("_gridSize", gridExtents);
             meshes[i].material.SetFloat("_pixelMultiplyer", pixelMultiplyer);
             meshes[i].material.SetFloat("_paintSplat", paintSplat);
             meshes[i].material.SetTexture("_PaintColour", currentColour);
@@ -78,7 +81,8 @@ public class SplatterMap : NetworkBehaviour
         texture3D.SetPixels(cols);
         texture3D.Apply();
 
-        //Sets "_voxels" in each shader to textured3D, so all gameobjects using this are updated at the same time when the texture3D updates
+
+        //Updates the textured3D, so all gameobjects using this are updated at the same time when the texture3D updates
 
         for(int i = 0; i < meshes.Count; i++)
         {
@@ -205,40 +209,10 @@ public class SplatterMap : NetworkBehaviour
     public void UpdateColour(Texture2D newColour)
     {
         currentColour = newColour;
-        //========================== COuld optimise to not do every gameobject ====================================
-        //foreach (MeshRenderer mesh in FindObjectOfType<SplatterMap>().GetComponentsInChildren<MeshRenderer>())
-        //{
-        //    mesh.material.SetTexture("_PaintColour", currentColour);
-        //}
-
+        //========================== Could optimise to not do every gameobject ====================================
         for(int i = 0; i < meshes.Count; i++)
         {
             meshes[i].material.SetTexture("_PaintColour", currentColour);
         }
     }
 }
-
-
-//Vector3 position = this.transform.position - collisionPosition;
-//Vector3Int pixelPosition = new Vector3Int((int)collisionPosition.x, (int)collisionPosition.y, (int)collisionPosition.z);
-//texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, new Color(1, 1, 1, 1));
-
-//for (int i = pixelPosition.x - 2; i < pixelPosition.x + 2; i++)
-//{
-//    //y
-//    for (int j = pixelPosition.y - 2; j < pixelPosition.y + 2; j++)
-//    {
-//        //z
-//        for (int k = pixelPosition.z - 2; k < pixelPosition.z + 2; k++)
-//        {
-//            Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-//            texture3D.SetPixel(i, j, k, new Color(1, 1, 1, 1));
-//            //point.transform.position = pixelLocation;
-//            Debug.Log(pixelLocation);
-
-//        }
-//    }
-//}
-////sending data to GPU
-//// upating texture buffer
-//texture3D.Apply();
