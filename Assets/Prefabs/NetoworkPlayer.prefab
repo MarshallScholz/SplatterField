@@ -517,6 +517,7 @@ GameObject:
   - component: {fileID: -2944543845283095555}
   - component: {fileID: 6660816373349228083}
   - component: {fileID: 2559643952447705536}
+  - component: {fileID: -1452750954678824445}
   m_Layer: 0
   m_Name: NetoworkPlayer
   m_TagString: Player
@@ -1023,6 +1024,23 @@ MonoBehaviour:
   gunTransform: {fileID: 419200313077131795}
   bulletOffset: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 3749715784165286228, guid: 9914967947f815942abb01ca3d83a4b7, type: 3}
+--- !u!114 &-1452750954678824445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877112918443055075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79874ac94d5b1314788ecf0e86bd23fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  showRoomGUI: 0
+  readyToBegin: 0
+  index: 0
 --- !u!1 &2219064449073669598
 GameObject:
   m_ObjectHideFlags: 0

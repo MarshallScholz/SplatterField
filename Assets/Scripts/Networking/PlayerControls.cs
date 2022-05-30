@@ -37,7 +37,7 @@ public class PlayerControls : NetworkBehaviour
         ignoreLayer = LayerMask.GetMask("Ignore Raycast");
         audioSource = GetComponent<AudioSource>();
         cc = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         //attatch player to camera if local player
         if (CameraController.instance != null && isLocalPlayer)
@@ -47,6 +47,12 @@ public class PlayerControls : NetworkBehaviour
     }
     void Update()
     {
+        //if(Input.GetMouseButtonDown(0) && Cursor.lockState == CursorLockMode.Locked)
+        //    Cursor.lockState = CursorLockMode.None;
+
+        //if (Input.GetMouseButtonDown(0) && Cursor.lockState == CursorLockMode.None)
+        //    Cursor.lockState = CursorLockMode.Locked;
+
         if (!isLocalPlayer)
             return;
 

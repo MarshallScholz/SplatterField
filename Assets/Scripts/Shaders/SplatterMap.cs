@@ -31,8 +31,8 @@ public class SplatterMap : NetworkBehaviour
     public float player2Score = 0;
 
     public Color paintColour = new Color(1, 0, 0, 0);
-    Color player1Colour = new Color(1, 1, 1, 1);
-    Color player2Colour = new Color(0.4f, 1, 1, 1);
+    public Color player1Colour = new Color(1, 1, 1, 1);
+    public Color player2Colour = new Color(0.4f, 1, 1, 1);
 
     public List<MeshRenderer> meshes;
 
