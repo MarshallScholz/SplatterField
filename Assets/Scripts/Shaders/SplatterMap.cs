@@ -31,6 +31,8 @@ public class SplatterMap : NetworkBehaviour
     public float player2Score = 0;
 
     public Color paintColour = new Color(1, 0, 0, 0);
+    Color player1Colour = new Color(1, 1, 1, 1);
+    Color player2Colour = new Color(0.4f, 1, 1, 1);
 
     public List<MeshRenderer> meshes;
 
@@ -113,11 +115,11 @@ public class SplatterMap : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            paintColour = new Color(0.4f, 0, 0, 0);
+            paintColour = player1Colour;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            paintColour = new Color(1, 0, 0, 0);
+            paintColour = player2Colour;
         }
     }
 
@@ -158,35 +160,13 @@ public class SplatterMap : NetworkBehaviour
                 //z
                 for (int k = pixelPosition.z - paintRadius; k < pixelPosition.z + paintRadius; k++)
                 {
+                    Color previousColour = texture3D.GetPixel(i, j, k);
+
+
                     //Makes it look more splatty with smaller radius'
                     Vector3 delta = new Vector3(i - pixelPosition.x, j - pixelPosition.y, k - pixelPosition.z);
                     if (delta.magnitude < paintRadius / minPaintArea /* paintRadius*/)
-                    {
-                        //Vector3Int pixelLocation = pixelPosition;// + new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-                        //NOT WORKING BECAUSE THE PIXEL COLOUR WOULD BE THE PAINTED TEXTURES PIXEL COLOUR. NOT RGB FROM HERE
-                        Color previousColour = texture3D.GetPixel(i, j, k);
                         texture3D.SetPixel(i, j, k, paintColour);
-                        Color currentColour = texture3D.GetPixel(i, j, k);
-                        if (previousColour == new Color(0, 1, 0, 1) &&  currentColour == new Color(1, 0, 0, 1))
-                        {                            
-                            player1Score--;
-                        }
-                        else if(previousColour == new Color(1, 0, 0, 1) && currentColour == new Color(0, 1, 0, 1))
-                        {
-                            player2Score--;
-                        }
-
-                        if (currentColour == new Color(1, 0, 0, 1) && previousColour != currentColour)
-                        {
-                            player1Score++;
-                        }
-                        else if (currentColour == new Color(0, 1, 0, 1) && previousColour != currentColour)
-                        {
-                            player2Score++;
-                        }
-                        //hitPoint.transform.position = pixelPosition;
-                        //Debug.Log("Splatter map position: " + pixelPosition);
-                    }
                     else
                     {
                         //decrease the drawchance as the i, j and k values increase to make nicer looking splats2
@@ -197,6 +177,26 @@ public class SplatterMap : NetworkBehaviour
                             texture3D.SetPixel(i, j, k, paintColour);
                         }
                     }
+
+                    Color currentColour = texture3D.GetPixel(i, j, k);
+
+                    //============ UPDATES PAINT SCORE
+                    if (currentColour == player1Colour && previousColour == player2Colour)
+                    {
+                        player1Score++;
+                        player2Score--;
+                    }
+                    else if(currentColour == player2Colour && previousColour == player1Colour)
+                    {
+                        player2Score++;
+                        player1Score--;
+                    }
+
+                    else if (previousColour == new Color(0, 1, 1, 1) && currentColour == player1Colour)
+                        player1Score++;
+
+                    else if (previousColour == new Color(0, 1, 1, 1) && currentColour == player2Colour)
+                        player2Score++;
                 }
             }
         }
