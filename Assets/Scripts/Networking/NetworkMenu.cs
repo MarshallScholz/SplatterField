@@ -8,12 +8,12 @@ using TMPro;
 public class NetworkMenu : MonoBehaviour
 {
     // Start is called before the first frame update
-    public NetworkRoomManager networkManager;
+    public NetworkManager networkManager;
     public GameObject canvas;
 
     public TMP_Text gamertag;
 
-    [SyncVar(hook = "PlayerName")] public string playerName;
+    //[SyncVar(hook = "PlayerName")] public string playerName;
     public void Host()
     {
         networkManager.StartHost();
@@ -36,7 +36,7 @@ public class NetworkMenu : MonoBehaviour
 
     public void UpdatePlayerName(string newName)
     {
-        playerName = newName;
-        gamertag.text = playerName;
+        //playerName = newName;
+        //gamertag.text = playerName;
     }
 }
