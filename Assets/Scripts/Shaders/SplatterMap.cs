@@ -42,7 +42,8 @@ public class SplatterMap : NetworkBehaviour
     {
         renderer = GetComponent<Renderer>();
         ResetSplatterMap();
-        paintColour = new Color(1, 0, 0, 0);
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void ResetSplatterMap()
@@ -108,19 +109,6 @@ public class SplatterMap : NetworkBehaviour
             ResetSplatterMap();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //Cursor.lockState = CursorLockMode.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            paintColour = player1Colour;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            paintColour = player2Colour;
-        }
     }
 
 

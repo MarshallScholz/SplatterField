@@ -27,8 +27,15 @@ public class PlayerControls : NetworkBehaviour
 
     public Vector3 playerMovement;
 
+    public int playerIndex;
+
     float forward;
     float turn;
+
+    public Color paintColour;
+
+    //static makes it so that serverIndex is the same for all instances of this script
+    static int serverIndex = 0;
 
     //public Transform feetHitPosition;
 
@@ -44,7 +51,34 @@ public class PlayerControls : NetworkBehaviour
         {
             CameraController.instance.target = CM_target;
         }
+
+        CmdSetIndex();
+
     }
+
+    [Command]
+    void CmdSetIndex()
+    {
+        RPCSetIndex(serverIndex);
+        serverIndex++;
+
+    }
+
+    [ClientRpc]
+    void RPCSetIndex(int index)
+    {
+        playerIndex = index;
+        int getEven = index % 2;
+        if(getEven == 0)
+        {
+            paintColour = new Color(1, 1, 1, 1);
+        }
+        else
+        {
+            paintColour = new Color(0.4f, 1, 1, 1);
+        }
+    }
+
     void Update()
     {
         //if(Input.GetMouseButtonDown(0) && Cursor.lockState == CursorLockMode.Locked)

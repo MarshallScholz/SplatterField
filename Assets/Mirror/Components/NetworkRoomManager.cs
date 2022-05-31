@@ -584,6 +584,7 @@ namespace Mirror
         /// <returns>A new GamePlayer object.</returns>
         public virtual GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer)
         {
+
             return null;
         }
 
