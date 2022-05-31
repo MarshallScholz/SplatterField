@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2006c7a2843279e4598781ed39185dd0, type: 3}
   m_Name: EosApiKey
   m_EditorClassIdentifier: 
-  epicProductName: MyApplication
+  epicProductName: Splatterfield
   epicProductVersion: 1.0
-  epicProductId: 
-  epicSandboxId: 
-  epicDeploymentId: 
-  epicClientId: 
-  epicClientSecret: 
+  epicProductId: ed4b4761ee3642a19665ecfa79915770
+  epicSandboxId: d859a5d867b548fabb3810a700bf739a
+  epicDeploymentId: c3014e49d9414cd28a32f4c8d5edba3e
+  epicClientId: xyza7891kDg0BcZTwxn1I9QFeyAgULVr
+  epicClientSecret: NHzAsEYprFHVOmAUWOejuZZmxLSDRuPvEE80xCdGfQA

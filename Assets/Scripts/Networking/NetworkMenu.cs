@@ -8,7 +8,7 @@ using TMPro;
 public class NetworkMenu : MonoBehaviour
 {
     // Start is called before the first frame update
-    public NetworkManager networkManager;
+    public NetworkRoomManager networkManager;
     public GameObject canvas;
 
     public TMP_Text gamertag;
