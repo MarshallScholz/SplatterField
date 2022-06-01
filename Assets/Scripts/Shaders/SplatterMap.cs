@@ -35,6 +35,7 @@ public class SplatterMap : NetworkBehaviour
     public Color player2Colour = new Color(0.4f, 1, 1, 1);
 
     public List<MeshRenderer> meshes;
+    public List<Material> materials;
 
     Renderer renderer;
     // Start is called before the first frame update
@@ -60,25 +61,32 @@ public class SplatterMap : NetworkBehaviour
 
         UpdateColour(currentColour);
 
-        //===================Creates a list of meshes to be updated =========================
+        //===================Creates a list of materials to be updated =========================
 
         foreach (GameObject gm in GameObject.FindGameObjectsWithTag("Paintable"))
         {
             MeshRenderer mesh = gm.GetComponent<MeshRenderer>();
+
             if (mesh != null)
             {
-                meshes.Add(mesh);
+                foreach (Material material in mesh.materials)
+                {
+                    if (material.HasProperty("_PaintColour"))
+                    {
+                        materials.Add(material);
+                    }
+                }
             }
         }
 
-        for(int i = 0; i < meshes.Count; i++)
+        for(int i = 0; i < materials.Count; i++)
         {
-            meshes[i].material.SetVector("_worldPosition", transform.position);
-            //meshes[i].material.SetFloat("_gridSize", gridExtents.x);
-            meshes[i].material.SetVector("_gridSize", gridExtents);
-            meshes[i].material.SetFloat("_pixelMultiplyer", pixelMultiplyer);
-            meshes[i].material.SetFloat("_paintSplat", paintSplat);
-            meshes[i].material.SetTexture("_PaintColour", currentColour);
+            materials[i].SetVector("_worldPosition", transform.position);
+            //materials[i].SetFloat("_gridSize", gridExtents.x);
+            materials[i].SetVector("_gridSize", gridExtents);
+            materials[i].SetFloat("_pixelMultiplyer", pixelMultiplyer);
+            materials[i].SetFloat("_paintSplat", paintSplat);
+            materials[i].SetTexture("_PaintColour", currentColour);
         }
 
         texture3D.SetPixels(cols);
@@ -87,9 +95,9 @@ public class SplatterMap : NetworkBehaviour
 
         //Updates the textured3D, so all gameobjects using this are updated at the same time when the texture3D updates
 
-        for(int i = 0; i < meshes.Count; i++)
+        for(int i = 0; i < materials.Count; i++)
         {
-            meshes[i].material.SetTexture("_TextureMask1", texture3D);
+            materials[i].SetTexture("_TextureMask1", texture3D);
         }
     }
 
@@ -97,9 +105,9 @@ public class SplatterMap : NetworkBehaviour
     {
         if (paintSplat != lastPaintSplat)
         {
-            for (int i = 0; i < meshes.Count; i++)
+            for (int i = 0; i < materials.Count; i++)
             {
-                meshes[i].material.SetFloat("_paintSplat", paintSplat);
+                materials[i].SetFloat("_paintSplat", paintSplat);
                 lastPaintSplat = paintSplat;
             }
         }
@@ -198,9 +206,9 @@ public class SplatterMap : NetworkBehaviour
     {
         currentColour = newColour;
         //========================== Could optimise to not do every gameobject ====================================
-        for(int i = 0; i < meshes.Count; i++)
+        for(int i = 0; i < materials.Count; i++)
         {
-            meshes[i].material.SetTexture("_PaintColour", currentColour);
+            materials[i].SetTexture("_PaintColour", currentColour);
         }
     }
 }
