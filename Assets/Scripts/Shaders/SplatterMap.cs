@@ -132,21 +132,22 @@ public class SplatterMap : NetworkBehaviour
 
 
     [Command(requiresAuthority = false)]
-    public void CmdUpdatePaint(Vector3 collisionPoint)
+    public void CmdUpdatePaint(Vector3 collisionPoint, Color colour)
     {
         //tells all clients to do it
-        RpcUpdatePaint(collisionPoint);
+        RpcUpdatePaint(collisionPoint, colour);
     }
 
     [ClientRpc]
-    void RpcUpdatePaint(Vector3 collisionPoint)
+    void RpcUpdatePaint(Vector3 collisionPoint, Color colour)
     {
-        UpdatePaint(collisionPoint);
+        UpdatePaint(collisionPoint, colour);
     }
 
     //LOOK AT ARTICLE TO OPTIMIZE upto 15x faster https://answers.unity.com/questions/266170/for-different-texture-sizes-which-is-faster-setpix.html
-    public void UpdatePaint(Vector3 collisionPosition)
+    public void UpdatePaint(Vector3 collisionPosition, Color colour)
     {
+        paintColour = colour;
         //collisionPosition += new Vector3(1, 0, 1);
         Vector3 position = collisionPosition - this.transform.position;
 

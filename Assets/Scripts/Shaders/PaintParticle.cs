@@ -44,7 +44,7 @@ public class PaintParticle : MonoBehaviour
                 //Vector3 pos = collisionEvents[i].colliderComponent.transform.position;
 
                 marker.transform.position = pos;
-                other.GetComponentInParent<Transform>().GetComponentInParent<SplatterMap>().UpdatePaint(pos);
+                //other.GetComponentInParent<Transform>().GetComponentInParent<SplatterMap>().UpdatePaint(pos);
             }
             //else
             //{

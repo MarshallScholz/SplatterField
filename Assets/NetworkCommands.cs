@@ -28,7 +28,7 @@ public class NetworkCommands : NetworkBehaviour
     [ClientRpc]
     void RpcUpdateSplatterMap(GameObject splatterMap, Vector3 position)
     {
-        splatterMap.GetComponent<SplatterMap>().UpdatePaint(position);
+        //splatterMap.GetComponent<SplatterMap>().UpdatePaint(position);
 
     }
         
