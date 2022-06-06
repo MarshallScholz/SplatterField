@@ -151,7 +151,8 @@ public class SplatterMap : NetworkBehaviour
         Vector3 position = collisionPosition - this.transform.position;
 
         //========================== Added offset for better splat centers ====================================
-        Vector3Int pixelPosition = new Vector3Int((Mathf.RoundToInt(position.x - gridExtents.x + paintOffset.x) * pixelMultiplyer), (Mathf.RoundToInt(position.y - gridExtents.y + paintOffset.y) * pixelMultiplyer), (Mathf.RoundToInt(position.z - gridExtents.z + paintOffset.z) * pixelMultiplyer));
+        Vector3Int pixelPosition = new Vector3Int(Mathf.RoundToInt(position.x - gridExtents.x + paintOffset.x), Mathf.RoundToInt(position.y - gridExtents.y + paintOffset.y), Mathf.RoundToInt(position.z - gridExtents.z + paintOffset.z));
+        pixelPosition *= pixelMultiplyer;
         //Vector3 pixelPosition = collisionPosition;
         //Vector3Int pixelPosition = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
         texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, paintColour);
