@@ -117,6 +117,16 @@ public class SplatterMap : NetworkBehaviour
             ResetSplatterMap();
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            paintColour = player1Colour;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            paintColour = player2Colour;
+        }
+
     }
 
 
