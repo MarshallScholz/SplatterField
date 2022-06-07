@@ -81,7 +81,8 @@ public class SplatterMap : NetworkBehaviour
 
         for(int i = 0; i < materials.Count; i++)
         {
-            materials[i].SetVector("_worldPosition", transform.position);
+            //====================================== Offset the pixel multiplier in the shader, keeping it here for now
+            materials[i].SetVector("_worldPosition", transform.position / pixelMultiplyer);
             //materials[i].SetFloat("_gridSize", gridExtents.x);
             materials[i].SetVector("_gridSize", gridExtents);
             materials[i].SetFloat("_pixelMultiplyer", pixelMultiplyer);
@@ -154,9 +155,9 @@ public class SplatterMap : NetworkBehaviour
         //========================== Added offset for better splat centers ====================================
         //Grid size isn't a box anymore. Possibly need to scale to XYZ
         Vector3Int pixelPosition = new Vector3Int(
-            Mathf.RoundToInt((position.x + gridExtents.x + paintOffset.x) * pixelMultiplyer) , 
-            Mathf.RoundToInt((position.y + gridExtents.y + paintOffset.y) * pixelMultiplyer), 
-            Mathf.RoundToInt((position.z + gridExtents.z + paintOffset.z) * pixelMultiplyer));
+            Mathf.RoundToInt((position.x + gridExtents.x - paintOffset.x) * pixelMultiplyer) , 
+            Mathf.RoundToInt((position.y + gridExtents.y - paintOffset.y) * pixelMultiplyer), 
+            Mathf.RoundToInt((position.z + gridExtents.z - paintOffset.z) * pixelMultiplyer));
 
         //pixelPosition *= pixelMultiplyer;
         //Vector3 pixelPosition = collisionPosition;

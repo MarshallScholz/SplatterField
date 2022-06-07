@@ -833,6 +833,29 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "5c17adf3c49a43fd92cce74bcc3d3dee",
+    "m_Id": -518837802,
+    "m_DisplayName": "Position",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Vector3_a80d79d797074c18b74833703d5cfb57",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "5d3d4dfec4f94888b84d515d963709c7",
     "m_Id": 2,
@@ -1235,6 +1258,9 @@
             "m_Id": "5b1f555682e04c0f83a0e51450a5339c"
         },
         {
+            "m_Id": "5c17adf3c49a43fd92cce74bcc3d3dee"
+        },
+        {
             "m_Id": "b80f0ff3559349daa849f4f321f9bc5b"
         }
     ],
@@ -1248,11 +1274,13 @@
     "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"5c71316f0c6a0e44a9a7fb5c9153c427\",\n        \"type\": 3\n    }\n}",
     "m_PropertyGuids": [
         "f5fd8c07-3f09-4f91-8855-a609b5ad707d",
-        "235da1cb-ca67-4211-b4eb-a9dc95e0799d"
+        "235da1cb-ca67-4211-b4eb-a9dc95e0799d",
+        "0592688a-4181-41db-9ab4-a5540896c287"
     ],
     "m_PropertyIds": [
         1827980267,
-        1077601095
+        1077601095,
+        -518837802
     ]
 }
 
