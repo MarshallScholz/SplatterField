@@ -46,8 +46,8 @@ namespace MirrorNetwork
         [Server]
         private void OnCollisionEnter(Collision other)
         {
-            if(other.gameObject.GetComponent<Health>())
-                other.gameObject.GetComponent<Health>().ApplyDamage(10);
+            if (other.gameObject.GetComponent<Health>())
+                other.transform.root.GetComponent<Health>().ApplyDamage(10);
 
 
             Vector3 collisionPoint = other.collider.ClosestPoint(this.transform.position);
