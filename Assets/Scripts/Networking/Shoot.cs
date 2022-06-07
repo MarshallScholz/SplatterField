@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 using MirrorNetwork;
 
-public class LaserBeam : NetworkBehaviour {
+public class Shoot : NetworkBehaviour {
 
     public LineRenderer lineRenderer;
     public float coolDown = 1;
@@ -22,7 +22,7 @@ public class LaserBeam : NetworkBehaviour {
         // turn off the linerenderer
         //ShowLaser(false);
         //==================CHANGE THIS TO PLAYERCONTROLS
-        CharacterMovement cm = GetComponent<CharacterMovement>();
+        PlayerControls cm = GetComponent<PlayerControls>();
         if (cm)
             index = cm.index;
     }
@@ -41,8 +41,11 @@ public class LaserBeam : NetworkBehaviour {
         // only check controls if we're the local player
         if (!isLocalPlayer)
             return;
-        if (Input.GetButtonDown("Fire" + index) && coolDown <= 0)
+        if (Input.GetMouseButton(0) && coolDown <= 0)
+        {
+            coolDown = 0.5f;
             CmdFire();
+        }
 
     }
 
@@ -93,7 +96,6 @@ public class LaserBeam : NetworkBehaviour {
     //        lineRenderer.enabled = show;
     //}
 
-    [Server]
     public void SpawnBullet()
     {
         // this gets called in response to animation events

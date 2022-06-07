@@ -19,7 +19,9 @@ namespace VisualFXSystem{
             //transfrom for the character midway between their feet
             Root,
             LeftHand,
+            LeftGun,
             RightHand,
+            RightGun,
             LeftFoot,
             RightFoot,
             Head,
@@ -28,7 +30,9 @@ namespace VisualFXSystem{
         //Dictionary used to map enum values to body parts (eg LeftFoot = 3)
         Dictionary<BodyPart, Transform> parts;
         public Transform leftHand;
+        public Transform leftGun;
         public Transform rightHand;
+        public Transform rightGun;
         public Transform leftFoot;
         public Transform rightFoot;
         public Transform head;
@@ -41,7 +45,9 @@ namespace VisualFXSystem{
             {
                 parts = new Dictionary<BodyPart, Transform>();
                 parts[BodyPart.LeftHand] = leftHand;
+                parts[BodyPart.LeftGun] = leftGun;
                 parts[BodyPart.RightHand] = rightHand;
+                parts[BodyPart.RightGun] = rightGun;
                 parts[BodyPart.LeftFoot] = leftFoot;
                 parts[BodyPart.RightFoot] = rightFoot;
                 parts[BodyPart.Head] = head;

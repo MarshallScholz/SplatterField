@@ -505,7 +505,6 @@ GameObject:
   - component: {fileID: 7578772396739969533}
   - component: {fileID: 7578772396739969528}
   - component: {fileID: 7578772396739969531}
-  - component: {fileID: 7578772396739969530}
   - component: {fileID: 7578772396739969532}
   - component: {fileID: 7687554047884715956}
   - component: {fileID: 7687554047884715957}
@@ -691,26 +690,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentAction: {fileID: 0}
   leftHand: {fileID: 6212498500019360552}
+  leftGun: {fileID: 0}
   rightHand: {fileID: 7758764732565547766}
+  rightGun: {fileID: 419200313077131795}
   leftFoot: {fileID: 258651197826699302}
   rightFoot: {fileID: 4844584891686400478}
   head: {fileID: 9123286218578869581}
   chest: {fileID: 4798581874973993506}
---- !u!114 &7578772396739969530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877112918443055075}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87525536d3ab6d647918d14483783044, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  punchFX: {fileID: 0}
-  kickFX: {fileID: 0}
 --- !u!114 &7578772396739969532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,6 +890,8 @@ MonoBehaviour:
   verticalRotMin: -80
   verticalRotMax: 80
   playerMovement: {x: 0, y: 0, z: 0}
+  playerIndex: 0
+  paintColour: {r: 0, g: 0, b: 0, a: 0}
 --- !u!143 &628861711684450797
 CharacterController:
   m_ObjectHideFlags: 0

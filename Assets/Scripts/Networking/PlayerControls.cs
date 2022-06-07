@@ -34,6 +34,8 @@ public class PlayerControls : NetworkBehaviour
 
     public Color paintColour;
 
+    public int index = 1;
+
     //static makes it so that serverIndex is the same for all instances of this script
     static int serverIndex = 0;
 
