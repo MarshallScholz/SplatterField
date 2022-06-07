@@ -103,7 +103,9 @@ public class LaserBeam : NetworkBehaviour {
         Quaternion.LookRotation(gunTransform.forward));
         Bullet bullet = go.GetComponent<Bullet>();
         bullet.velocity = gunTransform.right;
+       
         bullet.colour = GetComponent<PlayerControls>().paintColour;
+        bullet.player = this.gameObject;
 
         NetworkServer.Spawn(bullet.gameObject);
 

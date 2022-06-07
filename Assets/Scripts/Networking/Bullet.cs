@@ -14,6 +14,7 @@ namespace MirrorNetwork
         public float lifeTime;
         private Rigidbody rb;
         public Color colour;
+        public GameObject player;
 
         public override void OnStartServer()
         {
@@ -51,7 +52,7 @@ namespace MirrorNetwork
 
             Vector3 collisionPoint = other.collider.ClosestPoint(this.transform.position);
             //other.gameObject.GetComponentInParent<SplatterMap>().CmdUpdatePaint(collisionPoint);
-            FindObjectOfType<SplatterMap>().CmdUpdatePaint(collisionPoint, colour);
+            FindObjectOfType<SplatterMap>().CmdUpdatePaint(collisionPoint, colour, player);
 
 
             NetworkServer.Destroy(this.gameObject);
