@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 5868107168790553456}
   - component: {fileID: -2944543845283095555}
   - component: {fileID: 6660816373349228083}
-  - component: {fileID: 2559643952447705536}
+  - component: {fileID: 1712086610646117851}
   m_Layer: 0
   m_Name: NetoworkPlayer
   m_TagString: Player
@@ -940,7 +940,7 @@ MonoBehaviour:
   syncInterval: 0.1
   health: 100
   maxHealth: 100
-  hitFX: {fileID: 0}
+  hitFX: {fileID: 7777043425474155527}
 --- !u!114 &-2944543845283095555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -991,7 +991,7 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 1
   animator: {fileID: 4818150491942422666}
---- !u!114 &2559643952447705536
+--- !u!114 &1712086610646117851
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1877112918443055075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8956f50b16676b842b068a6260b986f7, type: 3}
+  m_Script: {fileID: 11500000, guid: dc477b14c3a1d88439d12bf4643e698c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
@@ -1011,6 +1011,7 @@ MonoBehaviour:
   gunTransform: {fileID: 419200313077131795}
   bulletOffset: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 3749715784165286228, guid: 9914967947f815942abb01ca3d83a4b7, type: 3}
+  coolDownLength: 1
 --- !u!1 &2219064449073669598
 GameObject:
   m_ObjectHideFlags: 0
@@ -8712,6 +8713,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fe0df07025a3e747855b1bb671fc04e, type: 3}
+--- !u!198 &7777043425474155527 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198350373398895308, guid: 3fe0df07025a3e747855b1bb671fc04e, type: 3}
+  m_PrefabInstance: {fileID: 7578772397351587531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7575750790577322255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4306116403247044, guid: 3fe0df07025a3e747855b1bb671fc04e, type: 3}

@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using MirrorNetwork;
 
-public class LaserBeam : NetworkBehaviour {
-
+public class ShootScript : NetworkBehaviour
+{
     public LineRenderer lineRenderer;
     public float coolDown = 1;
     public ParticleSystem fireFX;
@@ -45,23 +45,25 @@ public class LaserBeam : NetworkBehaviour {
             return;
         if (Input.GetButton("Fire" + index) && coolDown <= 0)
         {
-            CmdFire();
+            CmdFire(gunTransform.gameObject);
             coolDown = coolDownLength;
         }
 
     }
 
     [Command(requiresAuthority = false)]
-    void CmdFire()
+    void CmdFire(GameObject gunObject)
     {
+
+        ///ONLY THE PLAYER CAN HAVE A NETWORK IDENTITY, SO I NEED TO GRAB THE PLAYER, AND GET THE REFERENCE OF THE GUNOBJECT FROM THEM
         //tells all clients to do it
-        RpcFire();
+        RpcFire(gunObject);
     }
 
     [ClientRpc]
-    void RpcFire()
+    void RpcFire(GameObject gunObject)
     {
-        SpawnBullet();
+        SpawnBullet(gunObject);
     }
 
     void DoLaser()
@@ -75,7 +77,7 @@ public class LaserBeam : NetworkBehaviour {
             fireFX.Play();
 
         // do a raycast to subtract health. We only want to do this on the server
-       // rather than each client doing their own raycast
+        // rather than each client doing their own raycast
         if (!isServer)
             return;
 
@@ -98,18 +100,16 @@ public class LaserBeam : NetworkBehaviour {
     //        lineRenderer.enabled = show;
     //}
 
-    public void SpawnBullet()
+    public void SpawnBullet(GameObject gunObject)
     {
         // this gets called in response to animation events
         // DoLaser();
-        GameObject go =  Instantiate(bulletPrefab.gameObject,  gunTransform.position + bulletOffset, Quaternion.LookRotation(gunTransform.forward));
+        GameObject go = Instantiate(bulletPrefab.gameObject, gunObject.transform.position + bulletOffset, Quaternion.LookRotation(gunObject.transform.forward));
         Bullet bullet = go.GetComponent<Bullet>();
-        bullet.velocity = gunTransform.right;
-       
+        bullet.velocity = gunObject.transform.right;
+
         bullet.colour = GetComponent<PlayerControls>().paintColour;
         bullet.player = this.gameObject;
-
-        NetworkServer.Spawn(bullet.gameObject);
 
     }
 }

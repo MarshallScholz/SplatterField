@@ -126,6 +126,12 @@ public class PlayerControls : NetworkBehaviour
         //======update the player's movement from playerMovement(input) and playerVelocity(gravity and jumping) 
         playerMovement = (transform.forward * forward * playerSpeed + transform.right * turn * playerSpeed) * Time.fixedDeltaTime;
         cc.Move(playerVelocity * Time.fixedDeltaTime + playerMovement);
+    }
+
+    private void LateUpdate()
+    {
+        if (!isLocalPlayer)
+            return;
 
         //========updates aiming position
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -150,12 +156,6 @@ public class PlayerControls : NetworkBehaviour
             rot.x = Mathf.Clamp(rot.x, verticalRotMin, verticalRotMax);
             CM_target.localRotation = Quaternion.Euler(rot);
         }
-    }
-
-    private void LateUpdate()
-    {
-        if (!isLocalPlayer)
-            return;
 
     }
 

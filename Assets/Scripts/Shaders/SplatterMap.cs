@@ -37,6 +37,8 @@ public class SplatterMap : NetworkBehaviour
     public List<MeshRenderer> meshes;
     public List<Material> materials;
 
+    public ScoreUIManager scoreUIManager;
+
     Renderer renderer;
     // Start is called before the first frame update
     void Start()
@@ -45,6 +47,7 @@ public class SplatterMap : NetworkBehaviour
         ResetSplatterMap();
 
         Cursor.lockState = CursorLockMode.Locked;
+        scoreUIManager = FindObjectOfType<ScoreUIManager>();
     }
 
     void ResetSplatterMap()
@@ -81,7 +84,8 @@ public class SplatterMap : NetworkBehaviour
 
         for(int i = 0; i < materials.Count; i++)
         {
-            materials[i].SetVector("_worldPosition", transform.position);
+            //====================================== Offset the pixel multiplier in the shader, keeping it here for now
+            materials[i].SetVector("_worldPosition", transform.position / pixelMultiplyer);
             //materials[i].SetFloat("_gridSize", gridExtents.x);
             materials[i].SetVector("_gridSize", gridExtents);
             materials[i].SetFloat("_pixelMultiplyer", pixelMultiplyer);
@@ -117,31 +121,48 @@ public class SplatterMap : NetworkBehaviour
             ResetSplatterMap();
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            paintColour = player1Colour;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            paintColour = player2Colour;
+        }
+
     }
 
 
 
     [Command(requiresAuthority = false)]
-    public void CmdUpdatePaint(Vector3 collisionPoint)
+    public void CmdUpdatePaint(Vector3 collisionPoint, Color colour, GameObject player)
     {
         //tells all clients to do it
-        RpcUpdatePaint(collisionPoint);
+        RpcUpdatePaint(collisionPoint, colour, player);
     }
 
     [ClientRpc]
-    void RpcUpdatePaint(Vector3 collisionPoint)
+    void RpcUpdatePaint(Vector3 collisionPoint, Color colour, GameObject player)
     {
-        UpdatePaint(collisionPoint);
+        UpdatePaint(collisionPoint, colour, player);
     }
 
     //LOOK AT ARTICLE TO OPTIMIZE upto 15x faster https://answers.unity.com/questions/266170/for-different-texture-sizes-which-is-faster-setpix.html
-    public void UpdatePaint(Vector3 collisionPosition)
+    public void UpdatePaint(Vector3 collisionPosition, Color colour, GameObject player)
     {
+        paintColour = colour;
         //collisionPosition += new Vector3(1, 0, 1);
         Vector3 position = collisionPosition - this.transform.position;
 
         //========================== Added offset for better splat centers ====================================
-        Vector3Int pixelPosition = new Vector3Int((Mathf.RoundToInt(position.x - gridExtents.x + paintOffset.x) * pixelMultiplyer), (Mathf.RoundToInt(position.y - gridExtents.y + paintOffset.y) * pixelMultiplyer), (Mathf.RoundToInt(position.z - gridExtents.z + paintOffset.z) * pixelMultiplyer));
+        //Grid size isn't a box anymore. Possibly need to scale to XYZ
+        Vector3Int pixelPosition = new Vector3Int(
+            Mathf.RoundToInt((position.x + gridExtents.x - paintOffset.x) * pixelMultiplyer) , 
+            Mathf.RoundToInt((position.y + gridExtents.y - paintOffset.y) * pixelMultiplyer), 
+            Mathf.RoundToInt((position.z + gridExtents.z - paintOffset.z) * pixelMultiplyer));
+
+        //pixelPosition *= pixelMultiplyer;
         //Vector3 pixelPosition = collisionPosition;
         //Vector3Int pixelPosition = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
         texture3D.SetPixel(pixelPosition.x, pixelPosition.y, pixelPosition.z, paintColour);
@@ -176,30 +197,59 @@ public class SplatterMap : NetworkBehaviour
 
                     Color currentColour = texture3D.GetPixel(i, j, k);
 
-                    //============ UPDATES PAINT SCORE
-                    if (currentColour == player1Colour && previousColour == player2Colour)
-                    {
-                        player1Score++;
-                        player2Score--;
-                    }
-                    else if(currentColour == player2Colour && previousColour == player1Colour)
-                    {
-                        player2Score++;
-                        player1Score--;
-                    }
+                    //============ UPDATES PAINT SCORE with the player that shot
 
-                    else if (previousColour == new Color(0, 1, 1, 1) && currentColour == player1Colour)
-                        player1Score++;
+                    if (player.GetComponent<PlayerControls>().isLocalPlayer)
+                    {
+                        if (currentColour == player1Colour && previousColour == player2Colour)
+                        {
+                            player1Score++;
+                            player2Score--;
+                        }
+                        else if (currentColour == player2Colour && previousColour == player1Colour)
+                        {
+                            player2Score++;
+                            player1Score--;
+                        }
 
-                    else if (previousColour == new Color(0, 1, 1, 1) && currentColour == player2Colour)
-                        player2Score++;
+                        else if (previousColour == new Color(0, 1, 1, 1) && currentColour == player1Colour)
+                            player1Score++;
+
+                        else if (previousColour == new Color(0, 1, 1, 1) && currentColour == player2Colour)
+                            player2Score++;
+
+                        CmdUpdateScore(player1Score, player2Score);
+                    }
                 }
             }
         }
         //sending data to GPU
         // upating texture buffer
+
         texture3D.Apply();
         cube.transform.position = collisionPosition;
+    }
+
+
+    [Command(requiresAuthority = false)]
+    public void CmdUpdateScore(float _player1Score, float _player2Score)
+    {
+        ClientUpdateScore(_player1Score, _player2Score);
+    }
+
+    [ClientRpc]
+    public void ClientUpdateScore(float _player1Score, float _player2Score)
+    {
+        UpdateScore(_player1Score, _player2Score);
+    }
+
+    public void UpdateScore(float _player1Score, float _player2Score)
+    {
+        player1Score = _player1Score;
+        player2Score = _player2Score;
+
+        scoreUIManager.UpdateScores(player1Score, player2Score);
+
     }
 
     public void UpdateColour(Texture2D newColour)
