@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using MirrorNetwork;
+using VisualFXSystem;
 
 public class ShootScript : NetworkBehaviour
 {
@@ -45,26 +46,27 @@ public class ShootScript : NetworkBehaviour
             return;
         if (Input.GetButton("Fire" + index) && coolDown <= 0)
         {
-            CmdFire(gunTransform.gameObject);
+            //CmdFire(this.gameObject);
+            CmdFire(this.gameObject);
             coolDown = coolDownLength;
         }
 
     }
 
     [Command(requiresAuthority = false)]
-    void CmdFire(GameObject gunObject)
+    void CmdFire(GameObject playerObject)
     {
 
         ///ONLY THE PLAYER CAN HAVE A NETWORK IDENTITY, SO I NEED TO GRAB THE PLAYER, AND GET THE REFERENCE OF THE GUNOBJECT FROM THEM
         //tells all clients to do it
-        RpcFire(gunObject);
+        SpawnBullet(playerObject);
     }
 
-    [ClientRpc]
-    void RpcFire(GameObject gunObject)
-    {
-        SpawnBullet(gunObject);
-    }
+    //[ClientRpc]
+    //void RpcFire(GameObject playerObject)
+    //{
+    //    SpawnBullet(playerObject);
+    //}
 
     void DoLaser()
     {
@@ -99,17 +101,37 @@ public class ShootScript : NetworkBehaviour
     //    if(lineRenderer)
     //        lineRenderer.enabled = show;
     //}
-
-    public void SpawnBullet(GameObject gunObject)
+    [Server]
+    public void SpawnBullet(GameObject playerObject)
     {
         // this gets called in response to animation events
         // DoLaser();
-        GameObject go = Instantiate(bulletPrefab.gameObject, gunObject.transform.position + bulletOffset, Quaternion.LookRotation(gunObject.transform.forward));
+        Transform gunTransform = playerObject.GetComponent<CharacterFX>().rightGun;
+        GameObject go = Instantiate(bulletPrefab.gameObject, gunTransform.position + bulletOffset, Quaternion.LookRotation(gunTransform.forward));
         Bullet bullet = go.GetComponent<Bullet>();
-        bullet.velocity = gunObject.transform.right;
+
+        bullet.velocity = gunTransform.right;
+        Debug.Log("Player " + playerObject.GetComponent<PlayerControls>().playerIndex + ": " + gunTransform.right);
 
         bullet.colour = GetComponent<PlayerControls>().paintColour;
         bullet.player = this.gameObject;
 
+        NetworkServer.Spawn(bullet.gameObject);
+        //StartCoroutine(setBulletVelocity(bullet.velocity, bullet.gameObject)); 
+
+    }
+
+    IEnumerator setBulletVelocity(Vector3 velocity, GameObject bullet)
+    {
+        yield return new WaitForSeconds(0.01f);
+        if (bullet != null)
+            RpcSetBulletVelocity(velocity, bullet);
+        
+    }
+
+    [Command(requiresAuthority = false)]
+    public void RpcSetBulletVelocity(Vector3 velocity, GameObject bullet)
+    {
+        bullet.GetComponent<Rigidbody>().velocity = velocity;
     }
 }

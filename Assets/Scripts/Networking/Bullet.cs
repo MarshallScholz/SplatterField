@@ -9,7 +9,9 @@ namespace MirrorNetwork
     using Mirror;
     public class Bullet : NetworkBehaviour
     {
+        [SyncVar]
         public Vector3 velocity = new Vector3(10, 0, 0);
+
         public float speed = 10;
         public float lifeTime;
         private Rigidbody rb;
@@ -21,7 +23,7 @@ namespace MirrorNetwork
             Invoke(nameof(DestroySelf), lifeTime);
         }
         // destroy for everyone on the server
-        [Server]
+
         void DestroySelf()
         {
             NetworkServer.Destroy(gameObject);
@@ -31,14 +33,6 @@ namespace MirrorNetwork
         {
             rb = GetComponent<Rigidbody>();
             rb.velocity = this.velocity * speed;
-        }
-
-        // Update is called once per frame on the server
-        [Server]
-        void Update()
-        {
-            //transform.position += velocity * Time.deltaTime;
-            //velocity -= new Vector3(1, -Physics.gravity.y, 1);
         }
 
 
@@ -56,6 +50,25 @@ namespace MirrorNetwork
 
 
             NetworkServer.Destroy(this.gameObject);
+
+            //CmdDestroyBullet(this.gameObject);
+        }
+
+        [Command(requiresAuthority = false)]
+        public void CmdDestroyBullet(GameObject bullet)
+        {
+            RpcDestroyBullet(bullet);
+        }
+
+        [ClientRpc]
+        public void RpcDestroyBullet(GameObject bullet)
+        {
+            DestroyBullet(bullet);
+        }
+
+        public void DestroyBullet(GameObject bullet)
+        {
+            Destroy(bullet);
         }
 
 

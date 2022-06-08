@@ -54,7 +54,8 @@ public class PlayerControls : NetworkBehaviour
             CameraController.instance.target = CM_target;
         }
 
-        CmdSetIndex();
+        if(isLocalPlayer)
+            CmdSetIndex();
 
     }
 
