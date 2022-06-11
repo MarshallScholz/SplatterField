@@ -448,6 +448,7 @@ MonoBehaviour:
   beforeTAACustomPostProcesses: []
   beforePostProcessCustomPostProcesses: []
   afterPostProcessCustomPostProcesses:
+  - Underwater, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Blur, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   virtualTexturingSettings:
     streamingCpuCacheSizeInMegaBytes: 256

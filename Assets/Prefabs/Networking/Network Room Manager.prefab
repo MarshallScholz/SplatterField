@@ -1816,7 +1816,7 @@ MonoBehaviour:
   DualMode: 1
   NoDelay: 1
   Interval: 10
-  Timeout: 10000
+  Timeout: 1000000
   FastResend: 2
   CongestionWindow: 0
   SendWindowSize: 4096
@@ -1887,7 +1887,7 @@ MonoBehaviour:
   minPlayers: 1
   roomPlayerPrefab: {fileID: 7258444219468852545, guid: b745f4827354d0c46933dbd53c0521c2, type: 3}
   RoomScene: Assets/_Scenes/Room.unity
-  GameplayScene: Assets/_Scenes/PrototypeLevel.unity
+  GameplayScene: Assets/_Scenes/Maps/PrototypeLevel.unity
   _allPlayersReady: 0
   roomSlots: []
   clientIndex: 0

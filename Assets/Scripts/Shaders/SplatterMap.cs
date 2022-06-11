@@ -74,7 +74,7 @@ public class SplatterMap : NetworkBehaviour
             {
                 foreach (Material material in mesh.materials)
                 {
-                    if (material.HasProperty("_PaintColour"))
+                    if (material.HasProperty("_paintColour"))
                     {
                         materials.Add(material);
                     }
@@ -90,7 +90,8 @@ public class SplatterMap : NetworkBehaviour
             materials[i].SetVector("_gridSize", gridExtents);
             materials[i].SetFloat("_pixelMultiplyer", pixelMultiplyer);
             materials[i].SetFloat("_paintSplat", paintSplat);
-            materials[i].SetTexture("_PaintColour", currentColour);
+            materials[i].SetTexture("_team1Colour", currentColour);
+            materials[i].SetTexture("_team2Colour", currentColour);
         }
 
         texture3D.SetPixels(cols);
@@ -101,7 +102,7 @@ public class SplatterMap : NetworkBehaviour
 
         for(int i = 0; i < materials.Count; i++)
         {
-            materials[i].SetTexture("_TextureMask1", texture3D);
+            materials[i].SetTexture("_paintMask", texture3D);
         }
     }
 

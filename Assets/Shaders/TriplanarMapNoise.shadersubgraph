@@ -1795,7 +1795,7 @@
         "m_GuidSerialized": "81adf97b-8a7d-4b3d-bbab-55330906c3fd"
     },
     "m_Name": "PaintNoiseMultiplier",
-    "m_DefaultReferenceName": "",
+    "m_DefaultReferenceName": "Vector1_54b43589a93b439da627e1641230a382",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
@@ -3253,7 +3253,7 @@
         "m_GuidSerialized": "26e7320e-244f-4813-b840-e98d1f1e6119"
     },
     "m_Name": "SimpleNoise",
-    "m_DefaultReferenceName": "",
+    "m_DefaultReferenceName": "Vector1_ca86dac83e3842bc9c188bcfe4ba12a8",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,

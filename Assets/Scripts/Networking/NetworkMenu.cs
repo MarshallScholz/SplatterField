@@ -40,6 +40,11 @@ public class NetworkMenu : MonoBehaviour
         //gamertag.text = playerName;
     }
 
+    private void OnApplicationQuit()
+    {
+        networkManager.StopServer();
+    }
+
     //private void OnApplicationQuit()
     //{
     //    if(networkManager.is)
