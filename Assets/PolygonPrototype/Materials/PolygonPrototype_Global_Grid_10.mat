@@ -311,8 +311,8 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
-    - _mainColour: {r: 0, g: 1, b: 0.045587063, a: 1}
-    - _team1Colour: {r: 0, g: 0.7042553, b: 1, a: 1}
+    - _mainColour: {r: 0.8000001, g: 0.8000001, b: 0.8000001, a: 1}
+    - _team1Colour: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
     - _team2Colour: {r: 1, g: 0, b: 0, a: 1}
     - _worldPosition: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
