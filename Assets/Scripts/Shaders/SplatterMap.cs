@@ -31,8 +31,11 @@ public class SplatterMap : NetworkBehaviour
     public float player2Score = 0;
 
     public Color paintColour = new Color(1, 0, 0, 0);
-    public Color player1Colour = new Color(1, 1, 1, 1);
-    public Color player2Colour = new Color(0.4f, 1, 1, 1);
+    Color player1Colour = new Color(1, 1, 1, 1);
+    Color player2Colour = new Color(0.4f, 1, 1, 1);
+
+    public Color team1Colour = new Color (1, 0, 0, 1);
+    public Color team2Colour = new Color(0, 0, 1, 1);
 
     public List<MeshRenderer> meshes;
     public List<Material> materials;
@@ -90,8 +93,8 @@ public class SplatterMap : NetworkBehaviour
             materials[i].SetVector("_gridSize", gridExtents);
             materials[i].SetFloat("_pixelMultiplyer", pixelMultiplyer);
             materials[i].SetFloat("_paintSplat", paintSplat);
-            materials[i].SetTexture("_team1Colour", currentColour);
-            materials[i].SetTexture("_team2Colour", currentColour);
+            materials[i].SetColor("_team1Colour", team1Colour);
+            materials[i].SetColor("_team2Colour", team2Colour);
         }
 
         texture3D.SetPixels(cols);

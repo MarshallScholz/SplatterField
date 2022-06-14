@@ -11,6 +11,7 @@ public class ShootScript : NetworkBehaviour
     public float coolDown = 1;
     public ParticleSystem fireFX;
     public Transform gunTransform;
+    public float bulletSpeed = 5;
     public Vector3 bulletOffset;
     int index = 1;
 
@@ -116,7 +117,8 @@ public class ShootScript : NetworkBehaviour
         bullet.colour = GetComponent<PlayerControls>().paintColour;
         bullet.player = this.gameObject;
 
-        NetworkServer.Spawn(bullet.gameObject);
+        NetworkServer.Spawn(go);
+        //IF I HAVE TROUBLE UPDATING THE BULLET'S VELOCITY 
         //StartCoroutine(setBulletVelocity(bullet.velocity, bullet.gameObject)); 
 
     }
@@ -132,6 +134,6 @@ public class ShootScript : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void RpcSetBulletVelocity(Vector3 velocity, GameObject bullet)
     {
-        bullet.GetComponent<Rigidbody>().velocity = velocity;
+        bullet.GetComponent<Rigidbody>().velocity = velocity * bulletSpeed;
     }
 }

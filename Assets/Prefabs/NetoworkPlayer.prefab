@@ -131,6 +131,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 419200313077131795}
+  - component: {fileID: 3449778381071990443}
+  - component: {fileID: 6356949602868564810}
   m_Layer: 0
   m_Name: BulletPosition
   m_TagString: Untagged
@@ -152,6 +154,58 @@ Transform:
   m_Father: {fileID: 4412616236471498627}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3449778381071990443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786525810225221270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 9f5586f9936b526428d7113189f65869
+  hasSpawned: 0
+--- !u!114 &6356949602868564810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786525810225221270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  target: {fileID: 0}
 --- !u!1 &852143667494630538
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,6 +946,7 @@ MonoBehaviour:
   playerMovement: {x: 0, y: 0, z: 0}
   playerIndex: 0
   paintColour: {r: 0, g: 0, b: 0, a: 0}
+  index: 1
 --- !u!143 &628861711684450797
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1009,6 +1064,7 @@ MonoBehaviour:
   coolDown: 1
   fireFX: {fileID: 0}
   gunTransform: {fileID: 419200313077131795}
+  bulletSpeed: 50
   bulletOffset: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 3749715784165286228, guid: 9914967947f815942abb01ca3d83a4b7, type: 3}
   coolDownLength: 1

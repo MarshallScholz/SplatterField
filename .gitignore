@@ -48,6 +48,10 @@ ExportedObj/
 *.pdb.meta
 *.mdb.meta
 
+# Custom ignores
+*.zip
+*.7z
+
 # Unity3D generated file on crash reports
 sysinfo.txt
 
