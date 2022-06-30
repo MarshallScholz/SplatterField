@@ -5,50 +5,53 @@ using Mirror;
 using UnityEngine.UI;
 using TMPro;
 
-public class NetworkMenu : MonoBehaviour
+namespace Multisplat
 {
-    // Start is called before the first frame update
-    public NetworkRoomManager networkManager;
-    public GameObject canvas;
-
-    public TMP_Text gamertag;
-
-    //[SyncVar(hook = "PlayerName")] public string playerName;
-    public void Host()
+    public class NetworkMenu : MonoBehaviour
     {
-        networkManager.StartHost();
-        canvas.SetActive(false);
-    }
-    public void SetIP(string ip)
-    {
-        networkManager.networkAddress = ip;
-    }
-    public void Join()
-    {
-        networkManager.StartClient();
-        canvas.SetActive(false);
-    }
+        // Start is called before the first frame update
+        public NetworkRoomManager networkManager;
+        public GameObject canvas;
 
-    private void Start()
-    {
-        canvas.SetActive(true);
-    }
+        public TMP_Text gamertag;
 
-    public void UpdatePlayerName(string newName)
-    {
-        //playerName = newName;
-        //gamertag.text = playerName;
-    }
+        //[SyncVar(hook = "PlayerName")] public string playerName;
+        public void Host()
+        {
+            networkManager.StartHost();
+            canvas.SetActive(false);
+        }
+        public void SetIP(string ip)
+        {
+            networkManager.networkAddress = ip;
+        }
+        public void Join()
+        {
+            networkManager.StartClient();
+            canvas.SetActive(false);
+        }
 
-    private void OnApplicationQuit()
-    {
-        networkManager.StopServer();
-    }
+        private void Start()
+        {
+            canvas.SetActive(true);
+        }
 
-    //private void OnApplicationQuit()
-    //{
-    //    if(networkManager.is)
-    //    networkManager.StopHost();
-    //    networkManager.StopServer();
-    //}
+        public void UpdatePlayerName(string newName)
+        {
+            //playerName = newName;
+            //gamertag.text = playerName;
+        }
+
+        private void OnApplicationQuit()
+        {
+            networkManager.StopServer();
+        }
+
+        //private void OnApplicationQuit()
+        //{
+        //    if(networkManager.is)
+        //    networkManager.StopHost();
+        //    networkManager.StopServer();
+        //}
+    }
 }

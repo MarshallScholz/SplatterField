@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetworkPlayerManager : MonoBehaviour
+namespace Multisplat
 {
-    public int playerCount = 0;
+    public class NetworkPlayerManager : MonoBehaviour
+    {
+        public int playerCount = 0;
+    }
 }

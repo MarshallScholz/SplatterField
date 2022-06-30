@@ -4,25 +4,29 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 
-public class LobbyManager : NetworkLobbyManager
+namespace Multisplat
 {
-    public TextMeshPro playerName;
 
-    public override void OnRoomClientEnter()
+    public class LobbyManager : NetworkLobbyManager
     {
-        base.OnRoomClientEnter();
-        
+        public TextMeshPro playerName;
 
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        public override void OnRoomClientEnter()
+        {
+            base.OnRoomClientEnter();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        }
+        // Start is called before the first frame update
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

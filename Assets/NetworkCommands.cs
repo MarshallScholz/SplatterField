@@ -3,34 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class NetworkCommands : NetworkBehaviour
+namespace Multisplat
 {
-    public static NetworkCommands instance;
-    private void Start()
+
+    public class NetworkCommands : NetworkBehaviour
     {
-        if (isLocalPlayer)
+        public static NetworkCommands instance;
+        private void Start()
         {
-            instance = this;
+            if (isLocalPlayer)
+            {
+                instance = this;
+            }
         }
-    }
 
-    public void UpdateSplatterMap(SplatterMap splatterMap, Vector3 position)
-    {
-        CmdUpdateSplatterMap(splatterMap.gameObject, position);
-    }
+        public void UpdateSplatterMap(SplatterMap splatterMap, Vector3 position)
+        {
+            CmdUpdateSplatterMap(splatterMap.gameObject, position);
+        }
 
-    [Command(requiresAuthority = false)]
-    public void CmdUpdateSplatterMap(GameObject splatterMap, Vector3 position)
-    {
-        RpcUpdateSplatterMap(splatterMap, position);
-    }
+        [Command(requiresAuthority = false)]
+        public void CmdUpdateSplatterMap(GameObject splatterMap, Vector3 position)
+        {
+            RpcUpdateSplatterMap(splatterMap, position);
+        }
 
-    [ClientRpc]
-    void RpcUpdateSplatterMap(GameObject splatterMap, Vector3 position)
-    {
-        //splatterMap.GetComponent<SplatterMap>().UpdatePaint(position);
+        [ClientRpc]
+        void RpcUpdateSplatterMap(GameObject splatterMap, Vector3 position)
+        {
+            //splatterMap.GetComponent<SplatterMap>().UpdatePaint(position);
+
+        }
+
 
     }
-        
 
 }

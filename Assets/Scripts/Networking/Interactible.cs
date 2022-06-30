@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Interactible : MonoBehaviour
+namespace Multisplat
 {
-    public UnityEvent onUsed;
-    public void Use()
+    public class Interactible : MonoBehaviour
     {
-        onUsed.Invoke();
+        public UnityEvent onUsed;
+        public void Use()
+        {
+            onUsed.Invoke();
+        }
     }
 }
 

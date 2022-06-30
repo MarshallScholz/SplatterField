@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace VisualFXSystem{
+namespace VisualFXSystem
+{
 
     public class CharacterFX : MonoBehaviour
     {

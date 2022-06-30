@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-namespace MirrorNetwork
+namespace Multisplat
 {
     public class MarkerMoverNetwork : NetworkBehaviour
     {

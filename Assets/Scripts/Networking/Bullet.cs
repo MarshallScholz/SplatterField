@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.Networking;
 
-namespace MirrorNetwork
+namespace Multisplat
 {
     using Mirror;
     public class Bullet : NetworkBehaviour
@@ -33,6 +33,7 @@ namespace MirrorNetwork
         {
             rb = GetComponent<Rigidbody>();
             rb.velocity = this.velocity * speed;
+            Debug.Log(this.velocity);
         }
 
 
@@ -69,6 +70,12 @@ namespace MirrorNetwork
         public void DestroyBullet(GameObject bullet)
         {
             Destroy(bullet);
+        }
+
+        private void Update()
+        {
+            Debug.Log("Bullet Velocity" + rb.velocity);
+            Debug.Log("Velocity" + velocity);
         }
 
 
