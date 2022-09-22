@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PolygonPrototype_Global_Grid_09
+  m_Name: P_Green
   m_Shader: {fileID: -6465566751694194690, guid: 28a5e2924d0ebc14fbd0beb54cccf5af, type: 3}
   m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT
   m_LightmapFlags: 4
@@ -146,7 +146,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _mainTexture:
-        m_Texture: {fileID: 2800000, guid: 7076352ae1f9ac140975aa4bf14f8800, type: 3}
+        m_Texture: {fileID: 2800000, guid: 93fbbb9badd7d394ca58fbb3d271f7c7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _paintColour:
@@ -290,14 +290,14 @@ Material:
     - _paintSplat: 3.12
     - _pixelMultiplyer: 1
     m_Colors:
-    - Color_1c414c39abe846daa996736da85f52ed: {r: 1, g: 0, b: 0, a: 1}
-    - Color_946b2694b4174df9ac75d2e4d16f825c: {r: 0.5803922, g: 0.54509807, b: 0.4862745, a: 0}
+    - Color_1c414c39abe846daa996736da85f52ed: {r: 1, g: 0.18161473, b: 0, a: 1}
+    - Color_946b2694b4174df9ac75d2e4d16f825c: {r: 0.47058824, g: 0.5647059, b: 0.43137255, a: 0}
     - Color_ad8f1ee256cb49abaf74ea91d25e1d25: {r: 0, g: 0.7042553, b: 1, a: 1}
     - Vector4_f43ed35effcf45948c92ea52f7d2ea89: {r: 0, g: 0, b: 0, a: 0}
     - Vector4_f43ed35effcf45948c92ea52f7d2ea89_1: {r: 0, g: 0, b: 0, a: 0}
-    - _BaseColor: {r: 0.5803922, g: 0.54509807, b: 0.48627454, a: 0}
+    - _BaseColor: {r: 0.46882486, g: 0.5647059, b: 0.43295842, a: 0}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.5803921, g: 0.545098, b: 0.48627454, a: 0}
+    - _Color: {r: 0.46882486, g: 0.5647059, b: 0.4329584, a: 0}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
@@ -311,12 +311,12 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
-    - _mainColour: {r: 0, g: 0, b: 0, a: 0}
-    - _team1Colour: {r: 0, g: 0, b: 0, a: 1}
+    - _mainColour: {r: 0.47058824, g: 0.5647059, b: 0.43137255, a: 0}
+    - _team1Colour: {r: 0.47058824, g: 0.5647059, b: 0.43137255, a: 0}
     - _team2Colour: {r: 1, g: 0, b: 0, a: 1}
     - _worldPosition: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &8914405393795517153
+--- !u!114 &7916299071654274333
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

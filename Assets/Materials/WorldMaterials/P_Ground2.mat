@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2523137551316667349
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 11
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -7,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PolygonPrototype_Global_Grid_09
+  m_Name: P_Ground2
   m_Shader: {fileID: -6465566751694194690, guid: 28a5e2924d0ebc14fbd0beb54cccf5af, type: 3}
   m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT
   m_LightmapFlags: 4
@@ -25,22 +38,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2DArray_2b7ae89082774b7db6ae44c3004a32ed:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_b769428cda994715911400268d7f3650:
-        m_Texture: {fileID: 2800000, guid: dc035375c172992479def40691c2378a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_c2a20e507d2b460ca9730fabc0849d72:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture3D_494088924c8043ae8993a6d3da1b9af3:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _AnisotropyMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -69,10 +66,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Grid:
-        m_Texture: {fileID: 2800000, guid: 2a09470ada0c47849ad79d26363f8e4a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _HeightMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -93,10 +86,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 93fbbb9badd7d394ca58fbb3d271f7c7, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MaskMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -107,10 +96,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _PaintColour:
-        m_Texture: {fileID: 2800000, guid: 0ca6a197437958c44ba5f1d45f326e1a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
@@ -129,14 +114,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_668149a3d8eb4c4f93f03218393fcebb_Out_0:
-        m_Texture: {fileID: 2800000, guid: 0ca6a197437958c44ba5f1d45f326e1a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _TextureMask1:
-        m_Texture: {fileID: 11700000, guid: 836429d92e1b49443b7743362fdeb1fe, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _ThicknessMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -146,7 +123,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _mainTexture:
-        m_Texture: {fileID: 2800000, guid: 7076352ae1f9ac140975aa4bf14f8800, type: 3}
+        m_Texture: {fileID: 2800000, guid: 93fbbb9badd7d394ca58fbb3d271f7c7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _paintColour:
@@ -166,8 +143,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_5d10fdebd3464a25afc2f73a14320f57: 6.65
-    - Vector1_658e993bc90d499695306cfdbb0f7710: -2
     - Vector1_997b9bf857bf4e9fbc18c640bec09af4: 10.9
     - Vector1_ca9a35c1179a4c7c9deafc231d9d5b34: 0.01
     - _AORemapMax: 1
@@ -210,8 +185,6 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
-    - _Falloff: 50
-    - _GridScale: 1
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
     - _HeightMapParametrization: 0
@@ -228,12 +201,11 @@ Material:
     - _LinkDetailsWithBase: 1
     - _MaterialID: 1
     - _Metallic: 0
-    - _MetallicRemapMax: 0
+    - _MetallicRemapMax: 1
     - _MetallicRemapMin: 0
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _OpaqueCullMode: 2
-    - _OverlayAmount: 0.5
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15
     - _PPDMinSamples: 5
@@ -285,19 +257,12 @@ Material:
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
     - _ZWrite: 1
-    - __dirty: 1
-    - _gridSize: 40
     - _paintSplat: 3.12
     - _pixelMultiplyer: 1
     m_Colors:
-    - Color_1c414c39abe846daa996736da85f52ed: {r: 1, g: 0, b: 0, a: 1}
-    - Color_946b2694b4174df9ac75d2e4d16f825c: {r: 0.5803922, g: 0.54509807, b: 0.4862745, a: 0}
-    - Color_ad8f1ee256cb49abaf74ea91d25e1d25: {r: 0, g: 0.7042553, b: 1, a: 1}
-    - Vector4_f43ed35effcf45948c92ea52f7d2ea89: {r: 0, g: 0, b: 0, a: 0}
-    - Vector4_f43ed35effcf45948c92ea52f7d2ea89_1: {r: 0, g: 0, b: 0, a: 0}
-    - _BaseColor: {r: 0.5803922, g: 0.54509807, b: 0.48627454, a: 0}
+    - _BaseColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.5803921, g: 0.545098, b: 0.48627454, a: 0}
+    - _Color: {r: 0.34905657, g: 0.34905657, b: 0.34905657, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
@@ -311,21 +276,7 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
-    - _mainColour: {r: 0, g: 0, b: 0, a: 0}
-    - _team1Colour: {r: 0, g: 0, b: 0, a: 1}
+    - _mainColour: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 1}
+    - _team1Colour: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 1}
     - _team2Colour: {r: 1, g: 0, b: 0, a: 1}
-    - _worldPosition: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &8914405393795517153
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 11

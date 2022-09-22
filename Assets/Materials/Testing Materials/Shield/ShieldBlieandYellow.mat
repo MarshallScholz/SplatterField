@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShieldBlieandYellow 1
+  m_Name: ShieldBlieandYellow
   m_Shader: {fileID: -6465566751694194690, guid: bcbcea79a7f48df42ab5c0376bbc80d5, type: 3}
   m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT _DOUBLESIDED_ON _ENABLE_FOG_ON_TRANSPARENT
     _SURFACE_TYPE_TRANSPARENT
@@ -161,7 +161,7 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
-    - _FresnelPower: 2
+    - _FresnelPower: 3
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
     - _HeightMapParametrization: 0
@@ -237,7 +237,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - _BackColour: {r: 14.811442, g: 0.52688926, b: 0.93669206, a: 1}
+    - _BackColour: {r: 0, g: 4.8856087, b: 0.56933135, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -246,8 +246,8 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColour: {r: 277.08237, g: 0, b: 1024, a: 1}
-    - _FrontColour: {r: 0, g: 37.7602, b: 145.31857, a: 1}
+    - _FresnelColour: {r: 45.11927, g: 637.6858, b: 71.459305, a: 0.3764706}
+    - _FrontColour: {r: 3.00204, g: 26.751455, b: 0.37855765, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
