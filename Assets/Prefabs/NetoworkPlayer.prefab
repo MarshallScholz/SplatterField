@@ -1067,7 +1067,7 @@ MonoBehaviour:
   bulletSpeed: 50
   bulletOffset: {x: 0, y: 0, z: 0}
   bulletPrefab: {fileID: 3749715784165286228, guid: 9914967947f815942abb01ca3d83a4b7, type: 3}
-  coolDownLength: 1
+  coolDownLength: 0.2
 --- !u!1 &2219064449073669598
 GameObject:
   m_ObjectHideFlags: 0

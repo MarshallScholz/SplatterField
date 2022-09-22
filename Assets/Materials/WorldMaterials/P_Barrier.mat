@@ -127,7 +127,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _paintColour:
-        m_Texture: {fileID: 2800000, guid: df7c0e6cf8f64a44ea359c778e386616, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7076352ae1f9ac140975aa4bf14f8800, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -277,6 +277,6 @@ Material:
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
     - _mainColour: {r: 0, g: 0, b: 0, a: 1}
-    - _team1Colour: {r: 1, g: 1, b: 1, a: 0}
+    - _team1Colour: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
     - _team2Colour: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
